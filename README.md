@@ -1,2 +1,2 @@
-# MET - THE Fittness APP
-Fittness app from Nils, Jan and Jannes
+# MET - THE Fitness APP
+Fitness app from Nils, Jan and Jannes
