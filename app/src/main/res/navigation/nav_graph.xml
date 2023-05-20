@@ -3,26 +3,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/overviewFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.met.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
+        android:id="@+id/userCreationFragment"
+        android:name="com.example.met.UserCreationFragment"
+        android:label="fragment_user_creation"
+        tools:layout="@layout/fragment_user_creation" />
+    <fragment
+        android:id="@+id/overviewFragment"
+        android:name="com.example.met.OverviewFragment"
+        android:label="fragment_overview"
+        tools:layout="@layout/fragment_overview" >
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_overviewFragment_to_activityOverviewFragment"
+            app:destination="@id/activityOverviewFragment" />
+        <action
+            android:id="@+id/action_overviewFragment_to_newActivityFragment"
+            app:destination="@id/newActivityFragment" />
+        <action
+            android:id="@+id/action_overviewFragment_to_userCreationFragment"
+            app:destination="@id/userCreationFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.met.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
+        android:id="@+id/newActivityFragment"
+        android:name="com.example.met.NewActivityFragment"
+        android:label="fragment_new_activity"
+        tools:layout="@layout/fragment_new_activity" />
+    <fragment
+        android:id="@+id/activityOverviewFragment"
+        android:name="com.example.met.ActivityOverviewFragment"
+        android:label="fragment_activity_overview"
+        tools:layout="@layout/fragment_activity_overview" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_activityOverviewFragment_to_newActivityFragment"
+            app:destination="@id/newActivityFragment" />
     </fragment>
 </navigation>
