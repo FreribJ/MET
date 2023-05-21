@@ -6,6 +6,9 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="greeting_early">Guten Morgen,\n%1$s.</string>
+    <string name="greeting_noon">Hallo, %1$s.</string>
+    <string name="greeting_late">Guten Abend,\n%1$s.</string>
 
     <string name="lorem_ipsum">
         c consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus

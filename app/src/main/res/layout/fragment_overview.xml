@@ -44,7 +44,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:text="Guten morgen,\nJannes"
+            android:text="@string/greeting_noon"
             android:textSize="30dp"
             android:layout_marginLeft="10dp"/>
 

@@ -79,7 +79,10 @@ public class UserCreationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.userCreationFinished.setOnClickListener((v) -> Navigation.findNavController(view).navigate(R.id.overviewFragment));
+        binding.userCreationFinished.setOnClickListener((v) -> {
+
+            Navigation.findNavController(view).navigate(R.id.overviewFragment);
+        });
 
 
 
