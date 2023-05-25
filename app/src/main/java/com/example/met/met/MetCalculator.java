@@ -30,6 +30,19 @@ public class MetCalculator {
             new Activity("Volleyball", 4),
             new Activity("Tischtennis", 4)};
 
+    public static Category[] categories = new Category[] {
+            new Category("ungenügend", 0, 599),
+            new Category("niedrig", 600, 3999),
+            new Category("mittel", 4000, 7999),
+            new Category("hoch", 8000, Integer.MAX_VALUE),
+    };
+
+    String[] getCategoryArray() {
+        ArrayList<String> arrayList = new ArrayList<>();
+        Arrays.stream(categories).forEach(category -> arrayList.add(category.getName()));
+        return (String[]) arrayList.toArray();
+    }
+
     String[] getActivityArray() {
         ArrayList<String> arrayList = new ArrayList<>();
         Arrays.stream(activities).forEach(activity -> arrayList.add(activity.getName()));
