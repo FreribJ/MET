@@ -1,5 +1,6 @@
 package com.example.met;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.met.databinding.FragmentUserCreationBinding;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.InputMismatchException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,9 +97,53 @@ public class UserCreationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.userCreationFinished.setOnClickListener((v) -> Navigation.findNavController(view).navigate(R.id.overviewFragment));
+        binding.userCreationFinished.setOnClickListener((v) -> {
+        try {
+            createUser();
+            Navigation.findNavController(view).navigate(R.id.overviewFragment);
+        } catch (Exception e) {
+
+            System.out.println("Eingabe fehlgeschlagen");
+            throw e;
+        }
+        });
 
 
+    }
 
+    void createUser() {
+        String name = binding.inputName.getText().toString().strip();
+        if (name == "")
+            throw new InputMismatchException();
+
+        int age = Integer.parseInt(binding.inputAge.getText().toString());
+        if (age < 0 || age > 120)
+            throw new InputMismatchException();
+
+        double weight = Double.parseDouble(binding.inputWeight.getText().toString());
+        if (weight < 0 || weight > 500)
+            throw new InputMismatchException();
+
+        String category = "test";
+//        String category = binding.categoryChoice.getTransitionName();
+//        if (category == "")
+//            throw new InputMismatchException();
+
+        try {
+            JSONObject userConfig = new JSONObject();
+            userConfig.put("name", name);
+            userConfig.put("age", age);
+            userConfig.put("weight", weight);
+            userConfig.put("category", category);
+
+            System.out.println(userConfig.toString());
+
+//            File file = new File("config.json");
+            OutputStreamWriter writer = new OutputStreamWriter(getContext().openFileOutput("config.json", Context.MODE_PRIVATE));
+            writer.write(userConfig.toString());
+            writer.close();
+        } catch (IOException | JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

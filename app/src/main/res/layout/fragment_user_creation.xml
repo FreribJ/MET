@@ -32,17 +32,20 @@
             android:layout_gravity="fill_vertical">
 
             <EditText
+                android:id="@+id/inputName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Name">
             </EditText>
             <EditText
+                android:id="@+id/inputAge"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Alter"
                 android:inputType="number">
             </EditText>
             <EditText
+                android:id="@+id/inputWeight"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Gewicht"
