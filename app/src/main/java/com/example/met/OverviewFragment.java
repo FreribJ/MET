@@ -59,7 +59,7 @@ public class OverviewFragment extends Fragment {
         webView.loadUrl("https://www.wetter.de/widget/mini/u1m2g657/L2RldXRzY2hsYW5kL3dldHRlci1lbXNkZXR0ZW4tMTgyMjA4MTguaHRtbA==/");
 
         binding.showAllActivitys.setOnClickListener((v) -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_activityOverviewFragment));
-        binding.addActivity.setOnClickListener((v) -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_newActivityFragment));
+        binding.addActivity.setOnClickListener((v) -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_newDecisionFragment));
 
     }
 }

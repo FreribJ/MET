@@ -52,7 +52,7 @@ public class MetCalculator {
     String[] getSubActivityArray(String subActivityname) {
         ArrayList<String> arrayList = new ArrayList<>();
         Activity.SubActivity[] activity;
-        for (var a:  activities) {
+        for (Activity a:  activities) {
             if(a.getName() == subActivityname)
                 activity = a.getSubActivitys();
         }
@@ -66,7 +66,7 @@ public class MetCalculator {
 
     int calculateMet(String activityName, String subActivityname, int time) {
 
-        var sA = Arrays.stream(activities).findAny().get().getSubActivitys();
+        Activity.SubActivity[] sA = Arrays.stream(activities).findAny().get().getSubActivitys();
         return Arrays.stream(sA).findAny().get().getMet() * time;
     }
 

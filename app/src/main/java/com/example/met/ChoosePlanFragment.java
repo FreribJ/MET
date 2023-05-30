@@ -15,19 +15,19 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.met.databinding.FragmentActivityOverviewBinding;
-import com.example.met.databinding.FragmentOverviewBinding;
+import com.example.met.databinding.FragmentChoosePlanBinding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ActivityOverviewFragment#newInstance} factory method to
+ * Use the {@link ChoosePlanFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ActivityOverviewFragment extends Fragment {
+public class ChoosePlanFragment extends Fragment {
 
-    FragmentActivityOverviewBinding binding;
+    FragmentChoosePlanBinding binding;
 
 
-    public ActivityOverviewFragment() {
+    public ChoosePlanFragment() {
         // Required empty public constructor
     }
 
@@ -47,7 +47,7 @@ public class ActivityOverviewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentActivityOverviewBinding.inflate(inflater);
+        binding = FragmentChoosePlanBinding.inflate(inflater);
 
         return binding.getRoot();
     }
@@ -56,12 +56,9 @@ public class ActivityOverviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        WebView webView = getView().findViewById(R.id.wetter);
-        webView.setWebViewClient(new WebViewClient());
-        webView.setBackgroundColor(Color.TRANSPARENT);
-        webView.loadUrl("https://www.wetter.de/widget/mini/u1m2g657/L2RldXRzY2hsYW5kL3dldHRlci1lbXNkZXR0ZW4tMTgyMjA4MTguaHRtbA==/");
 
-       binding.addActivity.setOnClickListener((v) -> Navigation.findNavController(view).navigate(R.id.action_activityOverviewFragment_to_newDecisionFragment));
+        binding.usePlanButton.setOnClickListener((v) -> Navigation.findNavController(view).navigate(R.id.action_overviewFragment_to_newDecisionFragment));
+        binding.createPlanButton.setOnClickListener((v) -> Navigation.findNavController(view).navigate(R.id.action_choosePlanFragment_to_createPlanFragment));
 
     }
 }

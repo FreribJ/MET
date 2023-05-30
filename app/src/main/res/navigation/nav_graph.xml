@@ -16,14 +16,26 @@
         android:label="fragment_overview"
         tools:layout="@layout/fragment_overview" >
         <action
-            android:id="@+id/action_overviewFragment_to_activityOverviewFragment"
-            app:destination="@id/activityOverviewFragment" />
-        <action
-            android:id="@+id/action_overviewFragment_to_newActivityFragment"
-            app:destination="@id/newActivityFragment" />
-        <action
             android:id="@+id/action_overviewFragment_to_userCreationFragment"
             app:destination="@id/userCreationFragment" />
+        <action
+            android:id="@+id/action_overviewFragment_to_newDecisionFragment"
+            app:destination="@id/newDecisionFragment" />
+        <action
+            android:id="@+id/action_overviewFragment_to_activityOverviewFragment"
+            app:destination="@id/activityOverviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newDecisionFragment"
+        android:name="com.example.met.NewDecisionFragment"
+        android:label="fragment_new_decision"
+        tools:layout="@layout/fragment_new_decision" >
+        <action
+            android:id="@+id/action_newDecisionFragment_to_newActivityFragment"
+            app:destination="@id/newActivityFragment" />
+        <action
+            android:id="@+id/action_newDecisionFragment_to_choosePlanFragment"
+            app:destination="@id/choosePlanFragment" />
     </fragment>
     <fragment
         android:id="@+id/newActivityFragment"
@@ -31,12 +43,35 @@
         android:label="fragment_new_activity"
         tools:layout="@layout/fragment_new_activity" />
     <fragment
+        android:id="@+id/choosePlanFragment"
+        android:name="com.example.met.ChoosePlanFragment"
+        android:label="fragment_choose_plan"
+        tools:layout="@layout/fragment_choose_plan" >
+        <action
+            android:id="@+id/action_choosePlanFragment_to_createPlanFragment"
+            app:destination="@id/createPlanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createPlanFragment"
+        android:name="com.example.met.CreatePlanFragment"
+        android:label="fragment_create_plan"
+        tools:layout="@layout/fragment_create_plan" >
+        <action
+            android:id="@+id/action_createPlanFragment_to_newActivityForPlanFragment"
+            app:destination="@id/newActivityForPlanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newActivityForPlanFragment"
+        android:name="com.example.met.NewActivityForPlanFragment"
+        android:label="fragment_new_activity_for_plan"
+        tools:layout="@layout/fragment_new_activity_for_plan" />
+    <fragment
         android:id="@+id/activityOverviewFragment"
         android:name="com.example.met.ActivityOverviewFragment"
         android:label="fragment_activity_overview"
         tools:layout="@layout/fragment_activity_overview" >
         <action
-            android:id="@+id/action_activityOverviewFragment_to_newActivityFragment"
-            app:destination="@id/newActivityFragment" />
+            android:id="@+id/action_activityOverviewFragment_to_newDecisionFragment"
+            app:destination="@id/newDecisionFragment" />
     </fragment>
 </navigation>

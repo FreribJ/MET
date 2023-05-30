@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewActivityFragment">
-
+    tools:context=".CreatePlanFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical">
+
+
 
         <TextView
             android:layout_width="match_parent"
@@ -23,7 +24,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="Erstellen einer neuen Aktivität"
+            android:text="Trainingsplan bearbeiten"
             android:textAlignment="center" />
 
         <LinearLayout
@@ -34,40 +35,37 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/inputName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Name"></EditText>
+                android:hint="Name"/>
 
-            <Spinner
-                android:id="@+id/inputCategory"
+            <ListView
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Sportart"></Spinner>
+                android:layout_height="300dp"/>
 
-            <Spinner
-                android:id="@+id/inputIntensity"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Intensität"></Spinner>
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/inputTime"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Länge"></EditText>
-
-            <DatePicker
-                android:id="@+id/inputDate"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Datum"></DatePicker>
+                <Button
+                    android:id="@+id/addActivityButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="+ Hinzufügen"/>
+                <Button
+                    android:id="@+id/removeActivityButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="- Löschen"/>
+            </LinearLayout>
 
             <Button
-                android:id="@+id/userCreationFinished"
+                android:id="@+id/finishButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="Erstellen"></Button>
+                android:text="Fertig"/>
+
         </LinearLayout>
     </LinearLayout>
 
