@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    //Das ist ein andrerr Test!
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
