@@ -41,8 +41,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getWritableDatabase().execSQL("INSERT INTO user (name, age, weight, category) VALUES ('" + name + "', " + age + ", " + weight + ", '" + category + "');");
     }
 
-    void insertActivity(String name, String sport, String intensity, int time, String date, int id_user) {
-        getWritableDatabase().execSQL("INSERT INTO activitys (name, sport, intensity, time, date, id_user) VALUES ('" + name + "', '" + sport + "', '" + intensity + "', " + time + ", '" + date + "', " + id_user + ");");
+    void insertActivity(String name, String sport, String intensity, int time) {
+        getWritableDatabase().execSQL("INSERT INTO activitys (name, sport, intensity, time) VALUES ('" + name + "', '" + sport + "', '" + intensity + "', " + time + ");");
     }
 
     void insertPlan(String name, int age, double weight, String category) {

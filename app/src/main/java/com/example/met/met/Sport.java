@@ -1,12 +1,12 @@
 package com.example.met.met;
 
-public class Activity {
+public class Sport {
 
-    static class SubActivity {
+    static class Intensity {
         String name;
         int value;
 
-        public SubActivity(String name, int value) {
+        public Intensity(String name, int value) {
             this.name = name;
             this.value = value;
         }
@@ -22,14 +22,14 @@ public class Activity {
 
     private String name;
     private int value;
-    private SubActivity[] mets;
+    private Intensity[] mets;
 
-    public Activity(String name, int value) {
+    public Sport(String name, int value) {
         this.name = name;
         this.value = value;
     }
 
-    public Activity(String name, SubActivity[] subMets) {
+    public Sport(String name, Intensity[] subMets) {
         this.name = name;
         this.mets = subMets;
     }
@@ -49,7 +49,7 @@ public class Activity {
         return name;
     }
 
-    public SubActivity[] getSubActivitys() {
+    public Intensity[] getSubActivitys() {
         return mets;
     }
 }
