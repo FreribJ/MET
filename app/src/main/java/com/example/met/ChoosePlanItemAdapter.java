@@ -24,6 +24,7 @@ public class ChoosePlanItemAdapter extends ArrayAdapter<Plan> {
     public ChoosePlanItemAdapter(@NonNull Context context, int resource, @NonNull Plan[] objects) {
         super(context, resource, objects);
         this.context = context;
+        this.plans = objects;
         this.db = new DatabaseHelper(context);
     }
 

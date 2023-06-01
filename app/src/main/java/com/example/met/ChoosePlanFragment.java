@@ -65,11 +65,7 @@ public class ChoosePlanFragment extends Fragment implements AdapterView.OnItemCl
         super.onViewCreated(view, savedInstanceState);
 
         Plan[] plans = db.getPlans();
-        String[] activityNames = new String[plans.length];
-        for (int i = 0; i < plans.length; i++) {
-            activityNames[i] = plans[i].getName();
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, activityNames);
+        ChoosePlanItemAdapter adapter = new ChoosePlanItemAdapter(getContext(), android.R.layout.simple_spinner_item, plans);
         binding.planListView.setAdapter(adapter);
         binding.planListView.setOnItemClickListener(this);
 
