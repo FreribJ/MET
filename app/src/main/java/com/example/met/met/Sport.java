@@ -49,7 +49,7 @@ public class Sport {
         return name;
     }
 
-    public Intensity[] getSubActivitys() {
+    public Intensity[] getIntensitys() {
         return mets;
     }
 }

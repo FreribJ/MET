@@ -35,36 +35,46 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/planName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Name"/>
 
             <ListView
+                android:id="@+id/activityList"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"/>
+                android:layout_height="250dp"/>
 
+            <EditText
+                android:id="@+id/inputDate"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Datum"
+                android:inputType="date"></EditText>
+
+            <Button
+                android:id="@+id/addActivityButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="+ Hinzufügen"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/addActivityButton"
+                    android:id="@+id/finishButton"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:text="+ Hinzufügen"/>
+                    android:text="Fertig"/>
+
                 <Button
-                    android:id="@+id/removeActivityButton"
+                    android:id="@+id/usePlanButton"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:text="- Löschen"/>
+                    android:text="Anwenden"/>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/finishButton"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Fertig"/>
 
         </LinearLayout>
     </LinearLayout>

@@ -37,37 +37,48 @@ public class MetCalculator {
             new Category("hoch", 8000, Integer.MAX_VALUE),
     };
 
-    String[] getCategoryArray() {
+    public String[] getCategoryArray() {
         ArrayList<String> arrayList = new ArrayList<>();
         Arrays.stream(categories).forEach(category -> arrayList.add(category.getName()));
-        return (String[]) arrayList.toArray();
+        return arrayList.toArray(new String[0]);
     }
 
-    String[] getActivityArray() {
+    public String[] getSportArray() {
         ArrayList<String> arrayList = new ArrayList<>();
         Arrays.stream(activities).forEach(sport -> arrayList.add(sport.getName()));
-        return (String[]) arrayList.toArray();
+        return arrayList.toArray(new String[0]);
     }
 
-    String[] getSubActivityArray(String subActivityname) {
+    public String[] getIntensityArray(String intensityName) {
         ArrayList<String> arrayList = new ArrayList<>();
-        Sport.Intensity[] activity;
+        Sport.Intensity[] intensities = null;
         for (Sport a:  activities) {
-            if(a.getName() == subActivityname)
-                activity = a.getSubActivitys();
+            if(a.getName() == intensityName)
+                intensities = a.getIntensitys();
         }
-        Arrays.stream(activities).forEach(a -> arrayList.add(a.getName()));
-        return (String[]) arrayList.toArray();
+        if (intensities == null) {
+            return null;
+        }
+        Arrays.stream(intensities).forEach(a -> arrayList.add(a.getName()));
+        return arrayList.toArray(new String[0]);
     }
 
-    int calculateMet(String activityName, int time) {
+    public int calculateMet(String activityName, int time) {
         return Arrays.stream(activities).findAny().get().getMet() * time;
     }
 
-    int calculateMet(String activityName, String subActivityname, int time) {
+    public int calculateMet(String activityName, String subActivityname, int time) {
 
-        Sport.Intensity[] sA = Arrays.stream(activities).findAny().get().getSubActivitys();
+        Sport.Intensity[] sA = Arrays.stream(activities).findAny().get().getIntensitys();
         return Arrays.stream(sA).findAny().get().getMet() * time;
+    }
+
+    public int getIndexOfArray(String[] array, String value) {
+        if (array == null) {
+            return 0;
+        }
+        int i = Arrays.asList(array).indexOf(value);
+        return i == -1 ? 0 : i;
     }
 
 }

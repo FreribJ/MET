@@ -40,7 +40,7 @@
                 android:hint="Name"></EditText>
 
             <Spinner
-                android:id="@+id/inputCategory"
+                android:id="@+id/inputSport"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Sportart"></Spinner>
@@ -55,16 +55,24 @@
                 android:id="@+id/inputTime"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:inputType="numberDecimal"
                 android:hint="Länge"></EditText>
 
-            <DatePicker
+            <EditText
                 android:id="@+id/inputDate"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Datum"></DatePicker>
+                android:hint="Datum"
+                android:inputType="date"></EditText>
+
 
             <Button
-                android:id="@+id/userCreationFinished"
+                android:id="@+id/removeActivityButton"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:text="- Löschen"/>
+            <Button
+                android:id="@+id/activityCreationFinished"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="Erstellen"></Button>

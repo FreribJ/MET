@@ -31,14 +31,15 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    public static DatabaseHelper db;
 
-    //Hallo Nils das ist eine Änderung
-
-    //Das ist ein andrerr Test!
+    String user = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DatabaseHelper db = new DatabaseHelper(this);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -50,9 +51,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         //Überprüfen ob schon ein Benutzer erstellt worden ist und dann halt den direkt weiter skippen
-        try {
-            new InputStreamReader(openFileInput("config.json"));
-        } catch (IOException e) {
+
+        if (db.getUser() == null) {
             navController.navigate(R.id.userCreationFragment);
         }
     }
@@ -85,5 +85,9 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void test() {
+
     }
 }

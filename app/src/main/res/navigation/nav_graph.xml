@@ -73,5 +73,8 @@
         <action
             android:id="@+id/action_activityOverviewFragment_to_newDecisionFragment"
             app:destination="@id/newDecisionFragment" />
+        <action
+            android:id="@+id/action_activityOverviewFragment_to_newActivityFragment"
+            app:destination="@id/newActivityFragment" />
     </fragment>
 </navigation>
