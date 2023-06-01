@@ -1,11 +1,15 @@
 package com.example.met.met;
 
+import android.util.Log;
+
+import com.example.met.dataObjects.Activity;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MetCalculator {
 
-    public static Sport[] activities = new Sport[]{
+    static Sport[] sports = new Sport[]{
             new Sport("Joggen", new Sport.Intensity[]{
                     new Sport.Intensity("langsam", 9),
                     new Sport.Intensity("zügig", 12),
@@ -30,47 +34,80 @@ public class MetCalculator {
             new Sport("Volleyball", 4),
             new Sport("Tischtennis", 4)};
 
-    public static Category[] categories = new Category[] {
+    static Category[] categories = new Category[]{
             new Category("ungenügend", 0, 599),
             new Category("niedrig", 600, 3999),
             new Category("mittel", 4000, 7999),
             new Category("hoch", 8000, Integer.MAX_VALUE),
     };
 
-    public String[] getCategoryArray() {
+    public String[] getStringArray(HasName[] array) {
+        if (array == null) return null;
         ArrayList<String> arrayList = new ArrayList<>();
-        Arrays.stream(categories).forEach(category -> arrayList.add(category.getName()));
+        Arrays.stream(array).forEach(a -> arrayList.add(a.getName()));
         return arrayList.toArray(new String[0]);
     }
 
-    public String[] getSportArray() {
-        ArrayList<String> arrayList = new ArrayList<>();
-        Arrays.stream(activities).forEach(sport -> arrayList.add(sport.getName()));
-        return arrayList.toArray(new String[0]);
+    public Category[] getCategoryArray() {
+        return categories;
     }
 
-    public String[] getIntensityArray(String intensityName) {
-        ArrayList<String> arrayList = new ArrayList<>();
-        Sport.Intensity[] intensities = null;
-        for (Sport a:  activities) {
-            if(a.getName() == intensityName)
-                intensities = a.getIntensitys();
+    public Category getCategory(String name) {
+        for (Category category : categories) {
+            if (category.getName().equals(name)) {
+                return category;
+            }
         }
-        if (intensities == null) {
-            return null;
+        return null;
+    }
+
+    public Sport[] getSportArray() {
+        return sports;
+    }
+
+    public Sport getSport(String name) {
+        for (Sport sport : sports) {
+            if (sport.getName().equals(name)) {
+                return sport;
+            }
         }
-        Arrays.stream(intensities).forEach(a -> arrayList.add(a.getName()));
-        return arrayList.toArray(new String[0]);
+        return null;
     }
 
-    public int calculateMet(String activityName, int time) {
-        return Arrays.stream(activities).findAny().get().getMet() * time;
+    public Sport.Intensity[] getIntensityArray(Sport sport) {
+        return sport.getIntensitys();
     }
 
-    public int calculateMet(String activityName, String subActivityname, int time) {
+    public Sport.Intensity[] getIntensityArray(String sportName) {
+        Sport sport = getSport(sportName);
+        return getIntensityArray(sport);
+    }
 
-        Sport.Intensity[] sA = Arrays.stream(activities).findAny().get().getIntensitys();
-        return Arrays.stream(sA).findAny().get().getMet() * time;
+    public Sport.Intensity getIntensity(Sport sport, String intensityName) {
+        if (sport == null || intensityName.equals("")) return null;
+        for (Sport.Intensity intensity : sport.getIntensitys()) {
+            if (intensity.getName().equals(intensityName)) {
+                return intensity;
+            }
+        }
+        return null;
+    }
+
+    public Sport.Intensity getIntensity(String sportName, String intensityName) {
+        if (sportName == null) return null;
+        Sport sport = getSport(sportName);
+        return getIntensity(sport, intensityName);
+    }
+
+    public double getMet(Activity activity) {
+        Log.d("TESTING!!!", "getMet: " + activity.toString());
+        Sport sport = getSport(activity.getSport());
+        Sport.Intensity intensity = getIntensity(sport, activity.getIntensity());
+        if (intensity == null) {
+            return sport.getMet() * activity.getTime();
+        } else {
+            return intensity.getMet() * activity.getTime();
+        }
     }
 
     public int getIndexOfArray(String[] array, String value) {
@@ -81,4 +118,15 @@ public class MetCalculator {
         return i == -1 ? 0 : i;
     }
 
+    public int getIndexOfArray(HasName[] array, String value) {
+        if (array == null) {
+            return 0;
+        }
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].getName().equals(value)) {
+                return i;
+            }
+        }
+        return 0;
+    }
 }

@@ -40,4 +40,16 @@ public class Activity {
     public String getDate() {
         return date;
     }
+
+    @Override
+    public String toString() {
+        return "Activity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sport='" + sport + '\'' +
+                ", intensity='" + intensity + '\'' +
+                ", time=" + time +
+                ", date='" + date + '\'' +
+                '}';
+    }
 }

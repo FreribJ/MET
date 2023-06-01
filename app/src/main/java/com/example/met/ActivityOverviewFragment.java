@@ -69,13 +69,12 @@ public class ActivityOverviewFragment extends Fragment implements AdapterView.On
         webView.setBackgroundColor(Color.TRANSPARENT);
         webView.loadUrl("https://www.wetter.de/widget/mini/u1m2g657/L2RldXRzY2hsYW5kL3dldHRlci1lbXNkZXR0ZW4tMTgyMjA4MTguaHRtbA==/");
 
-
         Activity[] activities = db.getActivities();
         String[] activityNames = new String[activities.length];
         for (int i = 0; i < activities.length; i++) {
             activityNames[i] = activities[i].getName();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, activityNames);
+        ActivityOverviewItemAdapter adapter = new ActivityOverviewItemAdapter(getContext(), android.R.layout.simple_spinner_item, activities);
         binding.activityList.setAdapter(adapter);
         binding.activityList.setOnItemClickListener(this);
 

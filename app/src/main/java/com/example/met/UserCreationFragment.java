@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 
 import com.example.met.dataObjects.User;
 import com.example.met.databinding.FragmentUserCreationBinding;
+import com.example.met.met.HasName;
 import com.example.met.met.MetCalculator;
 
 import org.json.JSONException;
@@ -35,11 +36,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link UserCreationFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class UserCreationFragment extends Fragment {
 
     private FragmentUserCreationBinding binding;
@@ -76,7 +72,7 @@ public class UserCreationFragment extends Fragment {
 
         //Fill Spinner with categories
         MetCalculator metCalculator = new MetCalculator();
-        String[] categories = metCalculator.getCategoryArray();
+        String[] categories = metCalculator.getStringArray(metCalculator.getCategoryArray());
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categories);
         binding.categoryChoice.setAdapter(adapter);
 
@@ -87,7 +83,7 @@ public class UserCreationFragment extends Fragment {
             binding.inputName.setText(user.getName());
             binding.inputAge.setText(String.valueOf(user.getAge()));
             binding.inputWeight.setText(String.valueOf(user.getWeight()));
-            binding.categoryChoice.setSelection(metCalculator.getIndexOfArray(metCalculator.getCategoryArray(), user.getCategory()));
+            binding.categoryChoice.setSelection(metCalculator.getIndexOfArray(metCalculator.getStringArray(metCalculator.getCategoryArray()), user.getCategory()));
         }
 
         binding.userCreationFinished.setOnClickListener((v) -> {

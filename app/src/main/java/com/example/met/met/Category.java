@@ -1,6 +1,6 @@
 package com.example.met.met;
 
-public class Category {
+public class Category implements HasName {
     private String name;
     private int from;
     private int to;

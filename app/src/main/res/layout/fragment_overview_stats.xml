@@ -11,24 +11,27 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:text="Tag"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:textSize="20dp"></TextView>
+            android:text="Zeitraum"
+            android:textSize="20dp" />
 
         <TextView
+            android:id="@+id/acutalMet"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:text="Erreicht: "
-            android:textAlignment="center"></TextView>
+            android:text="Erreicht: ${value}"
+            android:textAlignment="center" />
 
         <TextView
+            android:id="@+id/neededMet"
             android:layout_width="match_parent"
             android:layout_height="25dp"
-            android:text="Noch zu erreichen: "
-            android:textAlignment="center"></TextView>
+            android:text="Noch zu erreichen: ${value}"
+            android:textAlignment="center" />
     </LinearLayout>
 
 </FrameLayout>

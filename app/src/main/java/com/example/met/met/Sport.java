@@ -1,8 +1,8 @@
 package com.example.met.met;
 
-public class Sport {
+public class Sport implements HasName{
 
-    static class Intensity {
+    static class Intensity implements HasName {
         String name;
         int value;
 
