@@ -23,9 +23,9 @@ import java.util.Date;
 
 public class NewActivityFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private static final String ARG_PARAM_EDIT_ID = "edit_id";
+    private static final String ARG_PARAM_ACTIVITY_ID = "activity_id";
 
-    int editId = -1;
+    int activityId = -1;
 
     FragmentNewActivityBinding binding;
 
@@ -43,7 +43,7 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            editId = getArguments().getInt(ARG_PARAM_EDIT_ID);
+            activityId = getArguments().getInt(ARG_PARAM_ACTIVITY_ID);
         }
 
         db = new DatabaseHelper(getContext());
@@ -69,7 +69,7 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
         binding.inputSport.setOnItemSelectedListener(this);
 
         binding.removeActivityButton.setOnClickListener(view1 -> {
-            db.deleteActivity(editId);
+            db.deleteActivity(activityId);
             Navigation.findNavController(view).popBackStack();
         });
 
@@ -82,16 +82,16 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
 
             Log.d("NewActivityFragment", "onViewCreated: " + name + " " + sport + " " + intensity + " " + duration + " " + date);
 
-            if (editId != -1)
-                db.updateActivity(editId, name, sport, intensity, duration, date);
+            if (activityId != -1)
+                db.updateActivity(activityId, name, sport, intensity, duration, date);
             else
                 db.insertActivity(name, sport, intensity, duration, date);
 
-            Navigation.findNavController(view).popBackStack();
+            Navigation.findNavController(view).popBackStack(R.id.activityOverviewFragment, false);
         });
 
-        if (editId != -1) {
-            Activity activity = db.getActivity(editId);
+        if (activityId != -1) {
+            Activity activity = db.getActivity(activityId);
             binding.inputName.setText(activity.getName());
             binding.inputSport.setSelection(metCalculator.getIndexOfArray(metCalculator.getSportArray(), activity.getSport()));
             binding.inputIntensity.setSelection(metCalculator.getIndexOfArray(metCalculator.getIntensityArray(activity.getSport()), activity.getIntensity()));

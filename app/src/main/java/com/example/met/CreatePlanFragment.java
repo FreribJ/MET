@@ -30,9 +30,9 @@ import com.example.met.databinding.FragmentCreatePlanBinding;
  */
 public class CreatePlanFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    private static final String ARG_PARAM_EDIT_ID = "edit_id";
+    private static final String ARG_PARAM_PLAN_ID = "plan_id";
 
-    int editId = -1;
+    int planId = -1;
     FragmentCreatePlanBinding binding;
 
     DatabaseHelper db;
@@ -54,7 +54,7 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            editId = getArguments().getInt(ARG_PARAM_EDIT_ID);
+            planId = getArguments().getInt(ARG_PARAM_PLAN_ID);
         }
 
         db = new DatabaseHelper(getContext());
@@ -73,10 +73,10 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Plan plan = db.getPlan(editId);
+        Plan plan = db.getPlan(planId);
         binding.planName.setText(plan.getName());
 
-        Plan_Activity[] activities = db.getPlanActivities(editId);
+        Plan_Activity[] activities = db.getPlanActivities(planId);
         String[] activityNames = new String[activities.length];
         for (int i = 0; i < activities.length; i++) {
             activityNames[i] = activities[i].getName();
@@ -85,18 +85,23 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
         binding.activityList.setAdapter(adapter);
         binding.activityList.setOnItemClickListener(this);
 
+        binding.removePlanButton.setOnClickListener((v) -> {
+            db.deletePlan(planId);
+            Navigation.findNavController(view).popBackStack(R.id.choosePlanFragment, false);
+        });
 
         binding.addActivityButton.setOnClickListener((v) -> {
             Bundle bundle = new Bundle();
-            bundle.putInt("plan_id", editId);
+            bundle.putInt("plan_id", planId);
+            bundle.putInt("plan_activity_id", -1);
             Navigation.findNavController(view).navigate(R.id.action_createPlanFragment_to_newActivityForPlanFragment, bundle);
         });
         binding.finishButton.setOnClickListener((v) -> {
-            db.updatePlan(editId, binding.planName.getText().toString());
+            db.updatePlan(planId, binding.planName.getText().toString());
             Navigation.findNavController(view).popBackStack(R.id.choosePlanFragment, false);
         });
         binding.usePlanButton.setOnClickListener((v) -> {
-            db.updatePlan(editId, binding.planName.getText().toString());
+            db.updatePlan(planId, binding.planName.getText().toString());
             applyPlanActivities();
 
             Navigation.findNavController(view).popBackStack(R.id.activityOverviewFragment, false);
@@ -104,7 +109,7 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
     }
 
     private void applyPlanActivities() {
-        Plan_Activity[] plan_activities = db.getPlanActivities(editId);
+        Plan_Activity[] plan_activities = db.getPlanActivities(planId);
         String date = binding.inputDate.getText().toString();
         for (Plan_Activity plan_activity : plan_activities) {
             db.insertActivity(plan_activity.getName(), plan_activity.getSport(), plan_activity.getIntensity(), plan_activity.getTime(), date);
@@ -115,8 +120,8 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Log.d("ActivityOverviewFragment", "onItemClick: " + i + " " + l);
         Bundle bundle = new Bundle();
-        bundle.putInt("edit_id", i);
-        bundle.putInt("plan_id", editId);
+        bundle.putInt("plan_activity_id", db.getPlanActivityId(planId, i));
+        bundle.putInt("plan_id", planId);
         Navigation.findNavController(view).navigate(R.id.action_createPlanFragment_to_newActivityForPlanFragment, bundle);
     }
 }

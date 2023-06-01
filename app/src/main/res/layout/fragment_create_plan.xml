@@ -12,7 +12,6 @@
         android:orientation="vertical">
 
 
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -38,12 +37,12 @@
                 android:id="@+id/planName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Name"/>
+                android:hint="Name" />
 
             <ListView
                 android:id="@+id/activityList"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"/>
+                android:layout_height="250dp" />
 
             <EditText
                 android:id="@+id/inputDate"
@@ -52,27 +51,36 @@
                 android:hint="Datum"
                 android:inputType="date"></EditText>
 
-            <Button
-                android:id="@+id/addActivityButton"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="+ Hinzufügen"/>
+
+                <Button
+                    android:id="@+id/addActivityButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="+ Aktivität Hinzufügen" />
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/finishButton"
+                    android:id="@+id/removePlanButton"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:text="Fertig"/>
+                    android:text="Plan\nlöschen" />
 
                 <Button
                     android:id="@+id/usePlanButton"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:text="Anwenden"/>
+                    android:text="Anwenden" />
+                <Button
+                    android:id="@+id/finishButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Fertig" />
+
             </LinearLayout>
 
 

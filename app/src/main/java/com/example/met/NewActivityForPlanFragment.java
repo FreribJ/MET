@@ -23,10 +23,10 @@ import com.example.met.met.MetCalculator;
 
 public class NewActivityForPlanFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    private static final String ARG_PARAM_EDIT_ID = "edit_id";
+    private static final String ARG_PARAM_PLAN_ACTIVITY_ID = "plan_activity_id";
     private static final String ARG_PARAM_PLAN_ID = "plan_id";
 
-    int editId = -1;
+    int planActivityId = -1;
     int planId = -1;
 
     FragmentNewActivityForPlanBinding binding;
@@ -45,7 +45,7 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            editId = getArguments().getInt(ARG_PARAM_EDIT_ID);
+            planActivityId = getArguments().getInt(ARG_PARAM_PLAN_ACTIVITY_ID);
             planId = getArguments().getInt(ARG_PARAM_PLAN_ID);
         }
 
@@ -72,7 +72,7 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
         binding.inputSport.setOnItemSelectedListener(this);
 
         binding.removeActivityButton.setOnClickListener(view1 -> {
-            db.deletePlanActivity(editId);
+            db.deletePlanActivity(planActivityId);
             Navigation.findNavController(view).popBackStack();
         });
 
@@ -84,16 +84,16 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
 
             Log.d("NewActivityFragment", "onViewCreated: " + name + " " + sport + " " + intensity + " " + duration);
 
-            if (editId != -1)
-                db.updatePlanActivity(editId, name, sport, intensity, duration);
+            if (planActivityId != -1)
+                db.updatePlanActivity(planActivityId, name, sport, intensity, duration);
             else
                 db.insertPlanActivity(name, sport, intensity, duration, planId);
 
             Navigation.findNavController(view).popBackStack();
         });
 
-        if (editId != -1) {
-            Plan_Activity activity = db.getPlanActivity(editId, planId);
+        if (planActivityId != -1) {
+            Plan_Activity activity = db.getPlanActivity(planActivityId);
             binding.inputName.setText(activity.getName());
             binding.inputSport.setSelection(metCalculator.getIndexOfArray(metCalculator.getSportArray(), activity.getSport()));
             binding.inputIntensity.setSelection(metCalculator.getIndexOfArray(metCalculator.getIntensityArray(activity.getSport()), activity.getIntensity()));

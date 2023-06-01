@@ -79,14 +79,16 @@ public class ActivityOverviewFragment extends Fragment implements AdapterView.On
         binding.activityList.setAdapter(adapter);
         binding.activityList.setOnItemClickListener(this);
 
-        binding.addActivity.setOnClickListener((v) -> Navigation.findNavController(view).navigate(R.id.action_activityOverviewFragment_to_newDecisionFragment));
+        Bundle bundle = new Bundle();
+        bundle.putInt("activity_id", -1);
+        binding.addActivity.setOnClickListener((v) -> Navigation.findNavController(view).navigate(R.id.action_activityOverviewFragment_to_newDecisionFragment, bundle));
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Log.d("ActivityOverviewFragment", "onItemClick: " + i + " " + l);
         Bundle bundle = new Bundle();
-        bundle.putInt("edit_id", i);
+        bundle.putInt("activity_id", db.getActivityId(i));
         Navigation.findNavController(view).navigate(R.id.action_activityOverviewFragment_to_newActivityFragment, bundle);
     }
 }

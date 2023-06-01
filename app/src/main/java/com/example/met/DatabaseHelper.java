@@ -102,13 +102,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     Activity getActivity(int id) {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM activitys", null);
-        for (int i = 0; i < id; i++) {
-            if (!cursor.moveToNext()) {
-                cursor.close();
-                return null;
-            }
-        }
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM activitys WHERE id = " + id + ";", null);
+
         if (cursor.moveToNext()) {
             String name = cursor.getString(1);
             String sport = cursor.getString(2);
@@ -121,6 +116,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return null;
+    }
+
+    int getActivityId(int index) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM activitys", null);
+        for (int i = 0; i < index; i++) {
+            if (!cursor.moveToNext()) {
+                cursor.close();
+                return -1;
+            }
+        }
+        if (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            cursor.close();
+            return id;
+        }
+        cursor.close();
+        return -1;
     }
 
     void deleteActivity(int id) {
@@ -138,14 +150,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getWritableDatabase().execSQL("UPDATE plans SET name = '" + name + "' WHERE id = " + id + ";");
     }
 
+    void deletePlan(int id) {
+        getWritableDatabase().execSQL("DELETE FROM plans WHERE id = " + id + ";");
+    }
+
     Plan getPlan(int id) {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM plans", null);
-        for (int i = 0; i < id; i++) {
-            if (!cursor.moveToNext()) {
-                cursor.close();
-                return null;
-            }
-        }
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM plans WHERE id = " + id + ";", null);
+
         if (cursor.moveToNext()) {
             String name = cursor.getString(1);
             Log.d("getPlan", "id: " + id + ", name: " + name);
@@ -154,6 +165,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return null;
+    }
+
+    int getPlanId(int index) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM plans", null);
+
+        for (int i = 0; i < index; i++) {
+            if (!cursor.moveToNext()) {
+                cursor.close();
+                return -1;
+            }
+        }
+        if (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            cursor.close();
+            return id;
+        }
+        cursor.close();
+        return -1;
     }
 
     Plan[] getPlans() {
@@ -178,14 +207,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         getWritableDatabase().execSQL("UPDATE plan_activitys SET name = '" + name + "', sport = '" + sport + "', intensity = '" + intensity + "', time = " + time + " WHERE id = " + id + ";");
     }
 
-    Plan_Activity getPlanActivity(int id, int plan_id) {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM plan_activitys WHERE id_plan = " + plan_id + ";", null);
-        for (int i = 0; i < id; i++) {
-            if (!cursor.moveToNext()) {
-                cursor.close();
-                return null;
-            }
-        }
+    Plan_Activity getPlanActivity(int id) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM plan_activitys WHERE id = " + id + ";", null);
+
         if (cursor.moveToNext()) {
             String name = cursor.getString(1);
             String sport = cursor.getString(2);
@@ -197,6 +221,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return null;
+    }
+
+    int getPlanActivityId(int plan_id, int index) {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM plan_activitys WHERE id_plan = " + plan_id + ";", null);
+
+        for (int i = 0; i < index; i++) {
+            if (!cursor.moveToNext()) {
+                cursor.close();
+                return -1;
+            }
+        }
+        if (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+            cursor.close();
+            return id;
+        }
+        cursor.close();
+        return -1;
     }
     Plan_Activity[] getPlanActivities(int plan_id) {
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM plan_activitys WHERE id_plan = " + plan_id + ";", null);
