@@ -18,23 +18,23 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.example.met.dataObjects.Activity;
+import com.example.met.dataObjects.Plan;
 import com.example.met.databinding.FragmentActivityOverviewBinding;
-import com.example.met.databinding.FragmentOverviewBinding;
-import com.example.met.met.MetCalculator;
+import com.example.met.databinding.FragmentChoosePlanBinding;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ActivityOverviewFragment#newInstance} factory method to
+ * Use the {@link ChoosePlanFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ActivityOverviewFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class ChoosePlanFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    FragmentActivityOverviewBinding binding;
+    FragmentChoosePlanBinding binding;
 
     DatabaseHelper db;
 
 
-    public ActivityOverviewFragment() {
+    public ChoosePlanFragment() {
         // Required empty public constructor
     }
 
@@ -55,7 +55,7 @@ public class ActivityOverviewFragment extends Fragment implements AdapterView.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentActivityOverviewBinding.inflate(inflater);
+        binding = FragmentChoosePlanBinding.inflate(inflater);
 
         return binding.getRoot();
     }
@@ -64,30 +64,29 @@ public class ActivityOverviewFragment extends Fragment implements AdapterView.On
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        WebView webView = getView().findViewById(R.id.wetter);
-        webView.setWebViewClient(new WebViewClient());
-        webView.setBackgroundColor(Color.TRANSPARENT);
-        webView.loadUrl("https://www.wetter.de/widget/mini/u1m2g657/L2RldXRzY2hsYW5kL3dldHRlci1lbXNkZXR0ZW4tMTgyMjA4MTguaHRtbA==/");
+        Plan[] plans = db.getPlans();
+        ChoosePlanItemAdapter adapter = new ChoosePlanItemAdapter(getContext(), android.R.layout.simple_spinner_item, plans);
+        binding.planListView.setAdapter(adapter);
+        binding.planListView.setOnItemClickListener(this);
 
-        Activity[] activities = db.getActivities();
-        String[] activityNames = new String[activities.length];
-        for (int i = 0; i < activities.length; i++) {
-            activityNames[i] = activities[i].getName();
-        }
-        ActivityOverviewItemAdapter adapter = new ActivityOverviewItemAdapter(getContext(), android.R.layout.simple_spinner_item, activities);
-        binding.activityList.setAdapter(adapter);
-        binding.activityList.setOnItemClickListener(this);
 
-        Bundle bundle = new Bundle();
-        bundle.putInt("activity_id", -1);
-        binding.addActivity.setOnClickListener((v) -> Navigation.findNavController(view).navigate(R.id.action_activityOverviewFragment_to_newDecisionFragment, bundle));
+        binding.createPlanButton.setOnClickListener((v) -> {
+            int planId = db.insertPlan("Neuer Plan");
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("plan_id", planId);
+            Navigation.findNavController(view).navigate(R.id.action_choosePlanFragment_to_createPlanFragment, bundle);
+        });
+
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Log.d("ActivityOverviewFragment", "onItemClick: " + i + " " + l);
         Bundle bundle = new Bundle();
-        bundle.putInt("activity_id", db.getActivityId(i));
-        Navigation.findNavController(view).navigate(R.id.action_activityOverviewFragment_to_newActivityFragment, bundle);
+        bundle.putInt("plan_id", db.getPlanId(i));
+        Navigation.findNavController(view).navigate(R.id.action_choosePlanFragment_to_createPlanFragment, bundle);
+
     }
 }

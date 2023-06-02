@@ -42,11 +42,13 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/greeting"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="@string/greeting_noon"
             android:textSize="30dp"
             android:layout_marginLeft="10dp"/>
+
 
         <include
             layout="@layout/fragment_overview_stats"

@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewActivityFragment">
-
+    tools:context=".CreatePlanFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="vertical">
+
 
         <TextView
             android:layout_width="match_parent"
@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="Erstellen einer neuen Aktivität"
+            android:text="Trainingsplan bearbeiten"
             android:textAlignment="center" />
 
         <LinearLayout
@@ -34,29 +34,15 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/inputName"
+                android:id="@+id/planName"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Name"></EditText>
+                android:hint="Name" />
 
-            <Spinner
-                android:id="@+id/inputSport"
+            <ListView
+                android:id="@+id/activityList"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Sportart"></Spinner>
-
-            <Spinner
-                android:id="@+id/inputIntensity"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Intensität"></Spinner>
-
-            <EditText
-                android:id="@+id/inputTime"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:inputType="numberDecimal"
-                android:hint="Länge"></EditText>
+                android:layout_height="250dp" />
 
             <EditText
                 android:id="@+id/inputDate"
@@ -66,16 +52,38 @@
                 android:inputType="date"></EditText>
 
 
-            <Button
-                android:id="@+id/removeActivityButton"
+                <Button
+                    android:id="@+id/addActivityButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="+ Aktivität Hinzufügen" />
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="- Löschen"/>
-            <Button
-                android:id="@+id/activityCreationFinished"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="Erstellen"></Button>
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/removePlanButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Plan\nlöschen" />
+
+                <Button
+                    android:id="@+id/usePlanButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Anwenden" />
+                <Button
+                    android:id="@+id/finishButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:text="Fertig" />
+
+            </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 

@@ -15,25 +15,27 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.example.met.dataObjects.Activity;
+import com.example.met.dataObjects.Plan_Activity;
 import com.example.met.databinding.FragmentNewActivityBinding;
+import com.example.met.databinding.FragmentNewActivityForPlanBinding;
 import com.example.met.met.MetCalculator;
 
-import java.util.Date;
 
+public class NewActivityForPlanFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-public class NewActivityFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+    private static final String ARG_PARAM_PLAN_ACTIVITY_ID = "plan_activity_id";
+    private static final String ARG_PARAM_PLAN_ID = "plan_id";
 
-    private static final String ARG_PARAM_ACTIVITY_ID = "activity_id";
+    int planActivityId = -1;
+    int planId = -1;
 
-    int activityId = -1;
-
-    FragmentNewActivityBinding binding;
+    FragmentNewActivityForPlanBinding binding;
 
     MetCalculator metCalculator = new MetCalculator();
 
     DatabaseHelper db;
 
-    public NewActivityFragment() {
+    public NewActivityForPlanFragment() {
         // Required empty public constructor
     }
 
@@ -43,7 +45,8 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            activityId = getArguments().getInt(ARG_PARAM_ACTIVITY_ID);
+            planActivityId = getArguments().getInt(ARG_PARAM_PLAN_ACTIVITY_ID);
+            planId = getArguments().getInt(ARG_PARAM_PLAN_ID);
         }
 
         db = new DatabaseHelper(getContext());
@@ -54,7 +57,7 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentNewActivityBinding.inflate(inflater);
+        binding = FragmentNewActivityForPlanBinding.inflate(inflater);
 
         return binding.getRoot();
     }
@@ -69,7 +72,7 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
         binding.inputSport.setOnItemSelectedListener(this);
 
         binding.removeActivityButton.setOnClickListener(view1 -> {
-            db.deleteActivity(activityId);
+            db.deletePlanActivity(planActivityId);
             Navigation.findNavController(view).popBackStack();
         });
 
@@ -78,25 +81,23 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
             String sport = binding.inputSport.getSelectedItem().toString();
             String intensity = binding.inputIntensity.getSelectedItem().toString();
             double duration = Double.parseDouble(binding.inputTime.getText().toString());
-            String date = binding.inputDate.getText().toString();
 
-            Log.d("NewActivityFragment", "onViewCreated: " + name + " " + sport + " " + intensity + " " + duration + " " + date);
+            Log.d("NewActivityFragment", "onViewCreated: " + name + " " + sport + " " + intensity + " " + duration);
 
-            if (activityId != -1)
-                db.updateActivity(activityId, name, sport, intensity, duration, date);
+            if (planActivityId != -1)
+                db.updatePlanActivity(planActivityId, name, sport, intensity, duration);
             else
-                db.insertActivity(name, sport, intensity, duration, date);
+                db.insertPlanActivity(name, sport, intensity, duration, planId);
 
-            Navigation.findNavController(view).popBackStack(R.id.activityOverviewFragment, false);
+            Navigation.findNavController(view).popBackStack();
         });
 
-        if (activityId != -1) {
-            Activity activity = db.getActivity(activityId);
+        if (planActivityId != -1) {
+            Plan_Activity activity = db.getPlanActivity(planActivityId);
             binding.inputName.setText(activity.getName());
             binding.inputSport.setSelection(metCalculator.getIndexOfArray(metCalculator.getSportArray(), activity.getSport()));
             binding.inputIntensity.setSelection(metCalculator.getIndexOfArray(metCalculator.getIntensityArray(activity.getSport()), activity.getIntensity()));
             binding.inputTime.setText(String.valueOf(activity.getTime()));
-            binding.inputDate.setText(activity.getDate());
         }
     }
 
