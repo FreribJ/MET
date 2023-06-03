@@ -1,26 +1,21 @@
 package com.example.met;
 
-import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.met.dataObjects.Activity;
+import com.example.met.dataObjects.Weather;
 import com.example.met.databinding.FragmentActivityOverviewBinding;
-import com.example.met.databinding.FragmentOverviewBinding;
-import com.example.met.met.MetCalculator;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,9 +24,10 @@ import com.example.met.met.MetCalculator;
  */
 public class ActivityOverviewFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    FragmentActivityOverviewBinding binding;
+    private Weather weather;
+    private FragmentActivityOverviewBinding binding;
 
-    DatabaseHelper db;
+    private DatabaseHelper db;
 
 
     public ActivityOverviewFragment() {
@@ -49,6 +45,7 @@ public class ActivityOverviewFragment extends Fragment implements AdapterView.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new DatabaseHelper(getContext());
+        weather = new ViewModelProvider(requireActivity()).get(Weather.class);
     }
 
     @Override
@@ -64,17 +61,16 @@ public class ActivityOverviewFragment extends Fragment implements AdapterView.On
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        WebView webView = getView().findViewById(R.id.wetter);
-        webView.setWebViewClient(new WebViewClient());
-        webView.setBackgroundColor(Color.TRANSPARENT);
-        webView.loadUrl("https://www.wetter.de/widget/mini/u1m2g657/L2RldXRzY2hsYW5kL3dldHRlci1lbXNkZXR0ZW4tMTgyMjA4MTguaHRtbA==/");
+        weather.getTemp().observe(requireActivity(),
+                (temp) -> binding.wetter.setText(Double.toString(temp)));
 
         Activity[] activities = db.getActivities();
         String[] activityNames = new String[activities.length];
         for (int i = 0; i < activities.length; i++) {
             activityNames[i] = activities[i].getName();
         }
-        ActivityOverviewItemAdapter adapter = new ActivityOverviewItemAdapter(getContext(), android.R.layout.simple_spinner_item, activities);
+        ActivityOverviewItemAdapter adapter = new ActivityOverviewItemAdapter(getContext(),
+                android.R.layout.simple_spinner_item, activities);
         binding.activityList.setAdapter(adapter);
         binding.activityList.setOnItemClickListener(this);
 

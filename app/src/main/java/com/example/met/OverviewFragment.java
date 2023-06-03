@@ -2,12 +2,6 @@ package com.example.met;
 
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +10,21 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+
 import com.example.met.dataObjects.Activity;
 import com.example.met.dataObjects.User;
+import com.example.met.dataObjects.Weather;
 import com.example.met.databinding.FragmentOverviewBinding;
-import com.example.met.databinding.FragmentUserCreationBinding;
 import com.example.met.met.MetCalculator;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.time.Duration;
-import java.util.Base64;
 import java.util.Date;
 
 /**
@@ -35,6 +33,8 @@ import java.util.Date;
  * create an instance of this fragment.
  */
 public class OverviewFragment extends Fragment {
+
+    Weather weather;
 
     FragmentOverviewBinding binding;
 
@@ -53,8 +53,7 @@ public class OverviewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = new DatabaseHelper(getContext());
-
-
+        weather = new ViewModelProvider(requireActivity()).get(Weather.class);
     }
 
     @Override
@@ -70,10 +69,8 @@ public class OverviewFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        WebView webView = getView().findViewById(R.id.wetter);
-        webView.setWebViewClient(new WebViewClient());
-        webView.setBackgroundColor(Color.TRANSPARENT);
-        webView.loadUrl("https://www.wetter.de/widget/mini/u1m2g657/L2RldXRzY2hsYW5kL3dldHRlci1lbXNkZXR0ZW4tMTgyMjA4MTguaHRtbA==/");
+        weather.getTemp().observe(requireActivity(),
+                (temp) -> binding.wetter.setText(Double.toString(temp)));
 
         User user = db.getUser();
         String name = user == null ? "newUser" : user.getName();
@@ -106,12 +103,13 @@ public class OverviewFragment extends Fragment {
 
         for (Activity activity : activities) {
             try {
-                long ago = Duration.between(today.toInstant(), formatter.parse(activity.getDate()).toInstant()).toDays();
+                long ago = Duration.between(today.toInstant(),
+                        formatter.parse(activity.getDate()).toInstant()).toDays();
                 if (ago == 0) {
                     activitiesToday++;
                     metValueToday += metCalculator.getMet(activity);
                 }
-                if (ago > -7 && ago <=0) {
+                if (ago > -7 && ago <= 0) {
                     activitiesThisWeek++;
                     metValueThisWeek += metCalculator.getMet(activity);
                 }
