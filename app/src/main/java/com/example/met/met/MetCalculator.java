@@ -35,10 +35,11 @@ public class MetCalculator {
             new Sport("Tischtennis", 4)};
 
     static Category[] categories = new Category[]{
-            new Category("ungenügend", 0, 599),
-            new Category("niedrig", 600, 3999),
-            new Category("mittel", 4000, 7999),
-            new Category("hoch", 8000, Integer.MAX_VALUE),
+            new Category("Aktivitätskategorie", Integer.MIN_VALUE, -1),
+            new Category("Ungenügend", 0, 599),
+            new Category("Niedrig", 600, 3999),
+            new Category("Mittel", 4000, 7999),
+            new Category("Hoch", 8000, Integer.MAX_VALUE),
     };
 
     public String[] getStringArray(HasName[] array) {

@@ -112,7 +112,7 @@ public class UserCreationFragment extends Fragment {
             throw new InputMismatchException();
 
         String category = binding.categoryChoice.getSelectedItem().toString();
-        if (category == "")
+        if (category == "" || category == "Aktivitätskategorie")
             throw new InputMismatchException();
 
         if (update)
