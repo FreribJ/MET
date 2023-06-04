@@ -85,7 +85,7 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
             if (activityId != -1)
                 db.updateActivity(activityId, name, sport, intensity, duration, date);
             else
-                db.insertActivity(name, sport, intensity, duration, date);
+                db.insertActivity(name, sport, intensity, duration, date, db.getUser().getWeight());
 
             Navigation.findNavController(view).popBackStack(R.id.activityOverviewFragment, false);
         });

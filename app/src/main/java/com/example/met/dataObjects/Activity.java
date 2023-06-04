@@ -7,14 +7,16 @@ public class Activity {
     String intensity;
     double time;
     String date;
+    double weightOfUser;
 
-    public Activity(int id, String name, String sport, String intensity, double time, String date) {
+    public Activity(int id, String name, String sport, String intensity, double time, String date, double weightOfUser) {
         this.id = id;
         this.name = name;
         this.sport = sport;
         this.intensity = intensity;
         this.time = time;
         this.date = date;
+        this.weightOfUser = weightOfUser;
     }
 
     public int getId() {
@@ -41,15 +43,20 @@ public class Activity {
         return date;
     }
 
+    public double getWeightOfUser() {
+        return weightOfUser;
+    }
+
     @Override
     public String toString() {
         return "Activity{" +
-                "id=" + id +
+                "id=" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", sport='" + sport + '\'' +
                 ", intensity='" + intensity + '\'' +
-                ", time=" + time +
+                ", time=" + time + '\'' +
                 ", date='" + date + '\'' +
+                ", weightOfUser=" + weightOfUser +
                 '}';
     }
 }
