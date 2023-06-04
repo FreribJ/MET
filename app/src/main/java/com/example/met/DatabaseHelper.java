@@ -91,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String intensity = cursor.getString(3);
             double time = cursor.getDouble(4);
             String date = cursor.getString(5);
-            double weightOfUser = cursor.getDouble(6);
+            double weightOfUser = cursor.getDouble(7); //Skipping id_user column, which at the moment is empty
             Log.d("getActivities", "id: " + id + ", name: " + name + ", sport: " + sport + ", intensity: " + intensity + ", time: " + time + ", date: " + date);
             activities.add(new Activity(id, name, sport, intensity, time, date, weightOfUser));
         }
