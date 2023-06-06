@@ -103,12 +103,12 @@ public class UserCreationFragment extends Fragment {
         if (name == "")
             throw new InputMismatchException();
 
-        int age = Integer.parseInt(binding.inputAge.getText().toString());
-        if (age < 0 || age > 120)
+        String dateOfBirth = binding.inputAge.getText().toString();
+        if (dateOfBirth.length() != 10)
             throw new InputMismatchException();
 
-        double weight = Double.parseDouble(binding.inputWeight.getText().toString());
-        if (weight < 0 || weight > 500)
+        double weight = Double.parseDouble(binding.inputWeight.getText().toString().replace(',', '.'));
+        if (weight < 0.0 || weight > 500.0)
             throw new InputMismatchException();
 
         String category = binding.categoryChoice.getSelectedItem().toString();
@@ -116,9 +116,9 @@ public class UserCreationFragment extends Fragment {
             throw new InputMismatchException();
 
         if (update)
-            db.updateUser(name, age, weight, category);
+            db.updateUser(name, dateOfBirth, weight, category);
         else
-            db.insertUser(name, age, weight, category);
+            db.insertUser(name, dateOfBirth, weight, category);
 
     }
 }
