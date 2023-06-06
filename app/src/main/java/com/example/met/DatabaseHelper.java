@@ -7,15 +7,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import androidx.annotation.Nullable;
-
 import com.example.met.dataObjects.Activity;
 import com.example.met.dataObjects.Plan;
 import com.example.met.dataObjects.Plan_Activity;
 import com.example.met.dataObjects.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -33,7 +30,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE user (id INTEGER PRIMARY KEY, name VARCHAR(255), age INTEGER, weight DOUBLE, category VARCHAR(255));");
-        sqLiteDatabase.execSQL("CREATE TABLE activitys (id INTEGER PRIMARY KEY, name VARCHAR(255), sport VARCHAR(255), intensity VARCHAR(255), time DOUBLE, date DATE, id_user BIGINT REFERENCES user(id));");
+        sqLiteDatabase.execSQL("CREATE TABLE activitys (id INTEGER PRIMARY KEY, name VARCHAR(255), sport VARCHAR(255), intensity VARCHAR(255), time DOUBLE, date DATE, id_user BIGINT REFERENCES user(id), weightOfUser DOUBLE);");
         sqLiteDatabase.execSQL("CREATE TABLE plans (id INTEGER PRIMARY KEY, name VARCHAR(255), age INTEGER, weight DOUBLE, category VARCHAR(255));");
         sqLiteDatabase.execSQL("CREATE TABLE plan_activitys (id INTEGER PRIMARY KEY, name VARCHAR(255), sport VARCHAR(255), intensity VARCHAR(255), time DOUBLE, id_plan INTEGER);");
     }
@@ -76,8 +73,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    void insertActivity(String name, String sport, String intensity, double time, String date) {
-        getWritableDatabase().execSQL("INSERT INTO activitys (name, sport, intensity, time, date) VALUES ('" + name + "', '" + sport + "', '" + intensity + "', " + time + ", '" + date + "');");
+    void insertActivity(String name, String sport, String intensity, double time, String date, double weightOfUser) {
+        getWritableDatabase().execSQL("INSERT INTO activitys (name, sport, intensity, time, date, weightOfUser) VALUES ('" + name + "', '" + sport + "', '" + intensity + "', " + time + ", '" + date + "', " + weightOfUser + ");");
     }
 
     void updateActivity(int id, String name, String sport, String intensity, double time, String date) {
@@ -94,8 +91,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String intensity = cursor.getString(3);
             double time = cursor.getDouble(4);
             String date = cursor.getString(5);
+            double weightOfUser = cursor.getDouble(7); //Skipping id_user column, which at the moment is empty
             Log.d("getActivities", "id: " + id + ", name: " + name + ", sport: " + sport + ", intensity: " + intensity + ", time: " + time + ", date: " + date);
-            activities.add(new Activity(id, name, sport, intensity, time, date));
+            activities.add(new Activity(id, name, sport, intensity, time, date, weightOfUser));
         }
         cursor.close();
         return activities.toArray(new Activity[0]);
@@ -110,9 +108,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String intensity = cursor.getString(3);
             double time = cursor.getDouble(4);
             String date = cursor.getString(5);
+            double weightOfUser = cursor.getDouble(6);
             Log.d("getActivity", "id: " + id + ", name: " + name + ", sport: " + sport + ", intensity: " + intensity + ", time: " + time + ", date: " + date);
             cursor.close();
-            return new Activity(id, name, sport, intensity, time, date);
+            return new Activity(id, name, sport, intensity, time, date, weightOfUser);
         }
         cursor.close();
         return null;

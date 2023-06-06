@@ -173,11 +173,11 @@ public class OverviewFragment extends Fragment {
                         formatter.parse(activity.getDate()).toInstant()).toDays();
                 if (ago == 0) {
                     activitiesToday++;
-                    metValueToday += metCalculator.getMet(activity);
+                    metValueToday += metCalculator.getMetMinutes(activity);
                 }
                 if (ago > -7 && ago <= 0) {
                     activitiesThisWeek++;
-                    metValueThisWeek += metCalculator.getMet(activity);
+                    metValueThisWeek += metCalculator.getMetMinutes(activity);
                 }
             } catch (ParseException e) {
                 Log.d("Statistics", "ParseException");
@@ -185,11 +185,11 @@ public class OverviewFragment extends Fragment {
         }
 
         binding.firstOverviewStat.title.setText("Heute");
-        binding.firstOverviewStat.acutalMet.setText(binding.firstOverviewStat.acutalMet.getText().toString().replace("${value}", String.valueOf(metValueToday)));
+        binding.firstOverviewStat.acutalMet.setText(binding.firstOverviewStat.acutalMet.getText().toString().replace("${value}", String.valueOf(metValueToday) + " (Aktuelle Kategorie: " + metCalculator.getCategoryName((int)metValueToday) + ")"));
         binding.firstOverviewStat.neededMet.setText(binding.firstOverviewStat.neededMet.getText().toString().replace("${value}", String.valueOf(metCalculator.getCategory(user.getCategory()).getTo() - metValueToday)));
 
         binding.secondOverviewStat.title.setText("Diese Woche");
-        binding.secondOverviewStat.acutalMet.setText(binding.secondOverviewStat.acutalMet.getText().toString().replace("${value}", String.valueOf(metValueThisWeek)));
+        binding.secondOverviewStat.acutalMet.setText(binding.secondOverviewStat.acutalMet.getText().toString().replace("${value}", String.valueOf(metValueThisWeek) + " (Aktuelle Kategorie: " + metCalculator.getCategoryName((int)metValueThisWeek / 7) + ")"));
         binding.secondOverviewStat.neededMet.setText(binding.secondOverviewStat.neededMet.getText().toString().replace("${value}", String.valueOf(metCalculator.getCategory(user.getCategory()).getTo() * 7 - metValueThisWeek)));
 
     }

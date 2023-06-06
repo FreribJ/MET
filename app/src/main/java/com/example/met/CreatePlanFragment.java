@@ -112,7 +112,7 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
         Plan_Activity[] plan_activities = db.getPlanActivities(planId);
         String date = binding.inputDate.getText().toString();
         for (Plan_Activity plan_activity : plan_activities) {
-            db.insertActivity(plan_activity.getName(), plan_activity.getSport(), plan_activity.getIntensity(), plan_activity.getTime(), date);
+            db.insertActivity(plan_activity.getName(), plan_activity.getSport(), plan_activity.getIntensity(), plan_activity.getTime(), date, db.getUser().getWeight());
         }
     }
 

@@ -62,6 +62,15 @@ public class MetCalculator {
         return null;
     }
 
+    public String getCategoryName(int met) {
+        for (Category category : categories) {
+            if (category.getFrom() <= met && met <= category.getTo()) {
+                return category.getName();
+            }
+        }
+        return null;
+    }
+
     public Sport[] getSportArray() {
         return sports;
     }
@@ -100,7 +109,7 @@ public class MetCalculator {
         return getIntensity(sport, intensityName);
     }
 
-    public double getMet(Activity activity) {
+    public double getMetMinutes(Activity activity) {
         Log.d("TESTING!!!", "getMet: " + activity.toString());
         Sport sport = getSport(activity.getSport());
         Sport.Intensity intensity = getIntensity(sport, activity.getIntensity());

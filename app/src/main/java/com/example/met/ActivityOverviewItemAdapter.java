@@ -5,8 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -56,8 +54,10 @@ public class ActivityOverviewItemAdapter extends ArrayAdapter<Activity> {
         nameOfSport.setText(activities[i].getSport());
 
         TextView valueOfMET = layout.findViewById(R.id.valueOfMET);
-        int met = (int) metCalculator.getMet(activities[i]);
-        valueOfMET.setText(String.valueOf(met) + " MET");
+        int metMinutes = (int) metCalculator.getMetMinutes(activities[i]);
+        valueOfMET.setText(String.valueOf((int)(metMinutes * activities[i].getWeightOfUser()) / 60) + " kcal\n" +
+                "(" + String.valueOf(metMinutes) + " MET-Minuten)");
+
 
         TextView valueOfTime = layout.findViewById(R.id.valueOfTime);
         valueOfTime.setText("Dauer: " + String.valueOf(activities[i].getTime()));
