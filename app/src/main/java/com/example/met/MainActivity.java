@@ -137,28 +137,16 @@ public class MainActivity extends AppCompatActivity {
                     double temp = main.getDouble("temp");
                     runOnUiThread(() -> weather.getTemp().setValue(temp));
                 }
-                if (main.has("feels_like")) {
-                    double feelsLike = main.getDouble("feels_like");
-                    runOnUiThread(() -> weather.getFeelsLike().setValue(feelsLike));
-                }
-                if (main.has("icon")) {
-                    String icon = main.getString("icon");
-                    runOnUiThread(() -> weather.getIcon().setValue(icon));
-                }
             }
-            if (jsonObject.has("clouds")) {
-                JSONObject clouds = jsonObject.getJSONObject("clouds");
-                if (clouds.has("all")) {
-                    String all = clouds.getString("all");
-                    runOnUiThread(() -> weather.getClouds().setValue(Double.parseDouble(all)));
+            if(jsonObject.has("weather")) {
+                JSONObject weatherObject = jsonObject.getJSONArray("weather").getJSONObject(0);
+                if(weatherObject.has("icon")) {
+                    String icon = weatherObject.getString("icon");
+                    runOnUiThread(() -> weather.getIcon().setValue(icon));
                 }
             }
         } else {
             Log.d("WeatherAPICall", "Error: " + connection.getResponseCode());
         }
-    }
-
-    public void test() {
-
     }
 }
