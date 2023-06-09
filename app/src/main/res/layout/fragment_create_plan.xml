@@ -48,7 +48,7 @@
                 android:id="@+id/inputDate"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Datum"
+                android:hint="Datum (dd.MM.yyyy)"
                 android:inputType="date"></EditText>
 
 

@@ -29,10 +29,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE user (id INTEGER PRIMARY KEY, name VARCHAR(255), age INTEGER, weight DOUBLE, category VARCHAR(255));");
+        sqLiteDatabase.execSQL("CREATE TABLE user (id INTEGER PRIMARY KEY, name VARCHAR(255), dateOfBirth VARCHAR(10), weight DOUBLE, category VARCHAR(255));");
         sqLiteDatabase.execSQL("CREATE TABLE activitys (id INTEGER PRIMARY KEY, name VARCHAR(255), sport VARCHAR(255), intensity VARCHAR(255), time DOUBLE, date DATE, id_user BIGINT REFERENCES user(id), weightOfUser DOUBLE);");
         sqLiteDatabase.execSQL("CREATE TABLE plans (id INTEGER PRIMARY KEY, name VARCHAR(255), age INTEGER, weight DOUBLE, category VARCHAR(255));");
-        sqLiteDatabase.execSQL("CREATE TABLE plan_activitys (id INTEGER PRIMARY KEY, name VARCHAR(255), sport VARCHAR(255), intensity VARCHAR(255), time DOUBLE, id_plan INTEGER);");
+        sqLiteDatabase.execSQL("CREATE TABLE plan_activitys (id INTEGER PRIMARY KEY, name VARCHAR(255), sport VARCHAR(255), intensity VARCHAR(255), time DOUBLE, id_plan INTEGER REFERENCES plans(id));");
     }
 
     @Override
@@ -43,14 +43,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    void insertUser(String name, int age, double weight, String category) {
-        getWritableDatabase().execSQL("INSERT INTO user (name, age, weight, category) VALUES ('" + name + "', " + age + ", " + weight + ", '" + category + "');");
-        Log.d("insertUser", "name: " + name + ", age: " + age + ", weight: " + weight + ", category: " + category);
+    void insertUser(String name, String dateOfBirth, double weight, String category) {
+        getWritableDatabase().execSQL("INSERT INTO user (name, dateOfBirth, weight, category) VALUES ('" + name + "', " + " '" + dateOfBirth + "' " + ", " + weight + ", '" + category + "');");
+        Log.d("insertUser", "name: " + name + ", date of birth: " + dateOfBirth + ", weight: " + weight + ", category: " + category);
     }
 
-    void updateUser(String name, int age, double weight, String category) {
-        getWritableDatabase().execSQL("UPDATE user SET name = '" + name + "', age = " + age + ", weight = " + weight + ", category = '" + category + "' WHERE id = 1;");
-        Log.d("updateUser", "name: " + name + ", age: " + age + ", weight: " + weight + ", category: " + category);
+    void updateUser(String name, String dateOfBirth, double weight, String category) {
+        getWritableDatabase().execSQL("UPDATE user SET name = '" + name + "', dateOfBirth = " + " '" + dateOfBirth + "' " + ", weight = " + weight + ", category = '" + category + "' WHERE id = 1;");
+        Log.d("updateUser", "name: " + name + ", date of birth: " + dateOfBirth + ", weight: " + weight + ", category: " + category);
     }
 
     User getUser() {

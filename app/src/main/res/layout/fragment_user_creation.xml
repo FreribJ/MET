@@ -41,8 +41,8 @@
                 android:id="@+id/inputAge"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="Alter"
-                android:inputType="number">
+                android:hint="Geburtsdatum"
+                android:inputType="date">
             </EditText>
             <EditText
                 android:id="@+id/inputWeight"
