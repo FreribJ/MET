@@ -2,13 +2,13 @@ package com.example.met.dataObjects;
 
 public class User {
     String name;
-    int age;
+    String dateOfBirth;
     double weight;
     String category;
 
-    public User(String name, int age, double weight, String category) {
+    public User(String name, String dateOfBirth, double weight, String category) {
         this.name = name;
-        this.age = age;
+        this.dateOfBirth = dateOfBirth;
         this.weight = weight;
         this.category = category;
     }
@@ -17,8 +17,8 @@ public class User {
         return name;
     }
 
-    public int getAge() {
-        return age;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
     public double getWeight() {

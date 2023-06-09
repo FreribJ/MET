@@ -81,7 +81,7 @@ public class UserCreationFragment extends Fragment {
         if (user != null) {
             Log.d("User", user.toString());
             binding.inputName.setText(user.getName());
-            binding.inputAge.setText(String.valueOf(user.getAge()));
+            binding.inputAge.setText(String.valueOf(user.getDateOfBirth()));
             binding.inputWeight.setText(String.valueOf(user.getWeight()));
             binding.categoryChoice.setSelection(metCalculator.getIndexOfArray(metCalculator.getStringArray(metCalculator.getCategoryArray()), user.getCategory()));
         }

@@ -56,17 +56,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     User getUser() {
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM user;", null);
         String name = "";
-        int age = 0;
+        String dateOfBirth = "";
         double weight = 0;
         String category = "";
         if (cursor.moveToNext()) {
             name = cursor.getString(1);
-            age = cursor.getInt(2);
+            dateOfBirth = cursor.getString(2);
             weight = cursor.getDouble(3);
             category = cursor.getString(4);
-            Log.d("getUser", "name: " + name + ", age: " + age + ", weight: " + weight + ", category: " + category);
+            Log.d("getUser", "name: " + name + ", dateOfBirth: " + dateOfBirth + ", weight: " + weight + ", category: " + category);
             cursor.close();
-            return new User(name, age, weight, category);
+            return new User(name, dateOfBirth, weight, category);
         }
         cursor.close();
         return null;
