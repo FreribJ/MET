@@ -17,6 +17,34 @@
     </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="met">MET</string>
+    <string name="overview">Übersicht</string>
+    <string name="new_activity">Neue Aktivität</string>
+    <string name="choose_plan">Trainingsplan auswählen</string>
+    <string name="create">Erstellen</string>
+    <string name="activityCount">Anzahl: ${value} Aktivitäten</string>
+    <string name="edit_plan">Trainingsplan bearbeiten</string>
+    <string name="name">Name</string>
+    <string name="date">Datum (dd.MM.yyyy)</string>
+    <string name="addActivity">+ Aktivität Hinzufügen</string>
+    <string name="deletePlan">Plan\nlöschen</string>
+    <string name="use">Anwenden</string>
+    <string name="ready">Fertig</string>
+    <string name="createNewActivity">Erstellen einer neuen Aktivität</string>
+    <string name="sport">Sportart</string>
+    <string name="intensity">Intensität</string>
+    <string name="length">Länge</string>
+    <string name="delete">- Löschen</string>
+    <string name="plans">Trainingspläne</string>
+    <string name="allActivities">Alle Aktivitäten</string>
+    <string name="timePeriod">Zeitraum</string>
+    <string name="reached">Erreicht: ${value}</string>
+    <string name="stillToReach">Noch zu erreichen: ${value}</string>
+    <string name="createUser">Erstelle dein Benutzer</string>
+    <string name="birthday">Geburtsdatum (dd.MM.yyyy)</string>
+    <string name="weight">Gewicht</string>
+    <string name="activityCategorie">Aktivitätskategorie</string>
+    <string name="changeUser">Ändere User</string>
 
 
     <string-array name="activityCategory">

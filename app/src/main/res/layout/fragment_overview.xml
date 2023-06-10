@@ -25,14 +25,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
-                    android:text="MET"
+                    android:text="@string/met"
                     android:textAlignment="textStart"
-                    android:textSize="50dp" />
+                    android:textSize="50sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:text="Übersicht" />
+                    android:text="@string/overview" />
             </LinearLayout>
 
             <LinearLayout
@@ -73,8 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:text="@string/greeting_noon"
-            android:textSize="30dp"
-            android:layout_marginLeft="10dp"/>
+            android:textSize="30sp"
+            android:layout_marginStart="10dp"/>
 
 
         <include
@@ -94,7 +94,7 @@
         <Button
             android:id="@+id/showAllActivitys"
             android:gravity="bottom"
-            android:text="Alle Aktivitäten"
+            android:text="@string/allActivities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="24dp"
