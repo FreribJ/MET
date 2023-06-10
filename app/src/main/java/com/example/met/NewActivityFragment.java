@@ -80,7 +80,7 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
                     Double.parseDouble(binding.inputTime.getText().toString()) : 0;
             String date = binding.inputDate.getText().toString();
 
-            if (!name.equals("") && !sport.equals("") && !intensity.equals("") && duration != 0 && date.matches("\\d{2}\\.\\d{2}\\.\\d{4}")) {
+            if (!name.equals("") && !sport.equals("") && duration != 0 && date.matches("\\d{2}\\.\\d{2}\\.\\d{4}")) {
                 Log.d("NewActivityFragment",
                         "onViewCreated: " + name + " " + sport + " " + intensity + " " + duration + " " + date);
 
