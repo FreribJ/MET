@@ -42,8 +42,7 @@
                 <ImageView
                     android:id="@+id/weatherIcon"
                     android:layout_width="75dp"
-                    android:layout_height="75dp"
-                    android:src="@drawable/weather_02d"/>
+                    android:layout_height="75dp"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"

@@ -44,14 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseHelper db = new DatabaseHelper(this);
 
-        com.example.met.databinding.ActivityMainBinding binding =
-                ActivityMainBinding.inflate(getLayoutInflater());
+        com.example.met.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
 
-        NavController navController = Navigation.findNavController(this,
-                R.id.nav_host_fragment_content_main);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
@@ -90,8 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this,
-                R.id.nav_host_fragment_content_main);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
     }
 
@@ -101,24 +98,21 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     getWeather(location.getLatitude(), location.getLongitude());
                 } catch (IOException | JSONException e) {
-                    throw new RuntimeException(e);
+                    Log.d("MainActivity", "Error by rest call to OpenWeather api: " + e.getMessage());
                 }
             }).start();
         };
         if (ActivityCompat.checkSelfPermission(this,
-                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1,
-                locationListener);
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 1, locationListener);
     }
 
     private void getWeather(double lat, double lon) throws IOException, JSONException {
         String apiKey = "98a1fcd8f66ee01cf44ecc347b0b12db";
         HttpURLConnection connection =
-                (HttpURLConnection) new URL("https://api.openweathermap" + ".org/data/2" + ".5" +
-                        "/weather?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey).openConnection();
+                (HttpURLConnection) new URL("https://api.openweathermap" + ".org/data/2" + ".5" + "/weather?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey).openConnection();
         connection.setRequestMethod("GET");
         connection.setRequestProperty("Accept", "application/json");
         if (connection.getResponseCode() == 200) {
@@ -138,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(() -> weather.getTemp().setValue(temp));
                 }
             }
-            if(jsonObject.has("weather")) {
+            if (jsonObject.has("weather")) {
                 JSONObject weatherObject = jsonObject.getJSONArray("weather").getJSONObject(0);
-                if(weatherObject.has("icon")) {
+                if (weatherObject.has("icon")) {
                     String icon = weatherObject.getString("icon");
                     runOnUiThread(() -> weather.getIcon().setValue(icon));
                 }

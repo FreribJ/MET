@@ -5,9 +5,9 @@ import androidx.lifecycle.ViewModel;
 
 public class Weather extends ViewModel {
 
-    private final MutableLiveData<String> name = new MutableLiveData<>("Hallo Welt");
-    private final MutableLiveData<Double> temp = new MutableLiveData<>(0.0);
-    private final MutableLiveData<String> icon = new MutableLiveData<>("");
+    private final MutableLiveData<String> name = new MutableLiveData<>(null);
+    private final MutableLiveData<Double> temp = new MutableLiveData<>(null);
+    private final MutableLiveData<String> icon = new MutableLiveData<>(null);
 
     public MutableLiveData<String> getName() {
         return name;

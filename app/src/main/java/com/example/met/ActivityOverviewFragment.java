@@ -62,74 +62,80 @@ public class ActivityOverviewFragment extends Fragment implements AdapterView.On
         super.onViewCreated(view, savedInstanceState);
 
         weather.getTemp().observe(requireActivity(), (temp) -> {
-            int celsius = (int) (temp - 273.15);
-            binding.temperatureTextView.setText(getString(R.string.temperature,
-                    Integer.toString(celsius)));
+            if (temp != null) {
+                int celsius = (int) (temp - 273.15);
+                binding.temperatureTextView.setText(requireActivity().getString(R.string.temperature,
+                        Integer.toString(celsius)));
+            }
         });
 
         weather.getName().observe(requireActivity(), (name) -> {
-            binding.locationTextView.setText(name);
+            if (name != null) {
+                binding.locationTextView.setText(name);
+            }
         });
 
         weather.getIcon().observe(requireActivity(), (icon) -> {
-            switch (icon) {
-                case "01d":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_01d);
-                    break;
-                case "01n":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_01n);
-                    break;
-                case "02d":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_02d);
-                    break;
-                case "02n":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_02n);
-                    break;
-                case "03d":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_03d);
-                    break;
-                case "03n":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_03n);
-                    break;
-                case "04d":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_04d);
-                    break;
-                case "04n":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_04n);
-                    break;
-                case "09d":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_09d);
-                    break;
-                case "09n":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_09n);
-                    break;
-                case "10d":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_10d);
-                    break;
-                case "10n":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_10n);
-                    break;
-                case "11d":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_11d);
-                    break;
-                case "11n":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_11n);
-                    break;
-                case "13d":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_13d);
-                    break;
-                case "13n":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_13n);
-                    break;
-                case "50d":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_50d);
-                    break;
-                case "50n":
-                    binding.weatherIcon.setImageResource(R.drawable.weather_50n);
-                    break;
-                default:
-                    Log.d("WeatherIcon", "Icon not found: " + icon);
-                    break;
+            if (icon != null) {
+                switch (icon) {
+                    case "01d":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_01d);
+                        break;
+                    case "01n":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_01n);
+                        break;
+                    case "02d":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_02d);
+                        break;
+                    case "02n":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_02n);
+                        break;
+                    case "03d":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_03d);
+                        break;
+                    case "03n":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_03n);
+                        break;
+                    case "04d":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_04d);
+                        break;
+                    case "04n":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_04n);
+                        break;
+                    case "09d":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_09d);
+                        break;
+                    case "09n":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_09n);
+                        break;
+                    case "10d":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_10d);
+                        break;
+                    case "10n":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_10n);
+                        break;
+                    case "11d":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_11d);
+                        break;
+                    case "11n":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_11n);
+                        break;
+                    case "13d":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_13d);
+                        break;
+                    case "13n":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_13n);
+                        break;
+                    case "50d":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_50d);
+                        break;
+                    case "50n":
+                        binding.weatherIcon.setImageResource(R.drawable.weather_50n);
+                        break;
+                    default:
+                        Log.d("WeatherIcon", "Icon not found: " + icon);
+                        break;
+                }
             }
         });
 
