@@ -24,8 +24,24 @@ public class ActivityOverviewItemAdapter extends ArrayAdapter<Activity> {
         super(context, resource, objects);
         this.context = context;
         this.activities = objects;
+        this.activities = sortActivities(activities);
     }
 
+    private Activity[] sortActivities(Activity[] activities) { //wip
+        Activity temp = null;
+        for (int i = 0; i < activities.length; i++) {
+            for (int j = 0; j < activities.length - 1; j++) {
+                int date1 = Integer.parseInt(activities[j].getDate().substring(6) + activities[j].getDate().substring(3,5) + activities[j].getDate().substring(0,2));
+                int date2 = Integer.parseInt(activities[j + 1].getDate().substring(6) + activities[j + 1].getDate().substring(3,5) + activities[j + 1].getDate().substring(0,2));
+                if (date1 < date2) {
+                    temp = activities[j];
+                    activities[j] = activities[j + 1];
+                    activities[j + 1] = temp;
+                }
+            }
+        }
+        return activities;
+    }
 
     @Override
     public int getCount() {
