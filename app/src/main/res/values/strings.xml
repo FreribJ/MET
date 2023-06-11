@@ -34,7 +34,7 @@
     <string name="createNewActivity">Erstellen einer neuen Aktivität</string>
     <string name="sport">Sportart</string>
     <string name="intensity">Intensität</string>
-    <string name="length">Dauer</string>
+    <string name="length">Dauer (in Minuten)</string>
     <string name="delete">- Löschen</string>
     <string name="plans">Trainingspläne</string>
     <string name="allActivities">Alle Aktivitäten</string>
