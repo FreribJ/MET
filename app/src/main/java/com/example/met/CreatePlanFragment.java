@@ -82,10 +82,8 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
         for (int i = 0; i < activities.length; i++) {
             activityNames[i] = activities[i].getName();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_item, activityNames);
+        CreatePlanItemAdapter adapter = new CreatePlanItemAdapter(getContext(), R.layout.fragment_create_plan_item, activities, planId);
         binding.activityList.setAdapter(adapter);
-        binding.activityList.setOnItemClickListener(this);
 
         binding.removePlanButton.setOnClickListener((v) -> {
             db.deletePlan(planId);
@@ -132,10 +130,6 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d("ActivityOverviewFragment", "onItemClick: " + i + " " + l);
-        Bundle bundle = new Bundle();
-        bundle.putInt("plan_activity_id", db.getPlanActivityId(planId, i));
-        bundle.putInt("plan_id", planId);
-        Navigation.findNavController(view).navigate(R.id.action_createPlanFragment_to_newActivityForPlanFragment, bundle);
+
     }
 }
