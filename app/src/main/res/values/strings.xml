@@ -28,7 +28,7 @@
     <string name="name">Name</string>
     <string name="date">Datum (DD.MM.YYYY)</string>
     <string name="addActivity">+ Aktivität Hinzufügen</string>
-    <string name="deletePlan">Plan\nlöschen</string>
+    <string name="deletePlan">Plan löschen</string>
     <string name="use">Anwenden</string>
     <string name="ready">Fertig</string>
     <string name="createNewActivity">Erstellen einer neuen Aktivität</string>

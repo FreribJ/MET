@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".CreatePlanFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".CreatePlanFragment">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:text="@string/met"
         android:textAlignment="center"
         android:textSize="50sp" />
@@ -24,9 +24,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="fill_vertical"
-        android:layout_margin="50dp"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
         android:orientation="vertical">
 
         <EditText
@@ -38,48 +37,59 @@
         <ListView
             android:id="@+id/activityList"
             android:layout_width="match_parent"
-            android:layout_height="250dp" />
-
-        <EditText
-            android:id="@+id/inputDate"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="@string/date"
-            android:inputType="date" />
-
-
-        <Button
-            android:id="@+id/addActivityButton"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/addActivity" />
-
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/inputDate"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="@string/date"
+                android:inputType="date" />
+
 
             <Button
-                android:id="@+id/removePlanButton"
-                android:layout_width="wrap_content"
+                android:id="@+id/addActivityButton"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/deletePlan" />
+                android:text="@string/addActivity" />
 
-            <Button
-                android:id="@+id/usePlanButton"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/use" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/removePlanButton"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:text="@string/deletePlan" />
+
+                <Button
+                    android:id="@+id/usePlanButton"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5sp"
+                    android:text="@string/use" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/finishButton"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="@string/ready" />
 
         </LinearLayout>
-
 
     </LinearLayout>
 </LinearLayout>
