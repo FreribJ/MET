@@ -69,7 +69,7 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
         super.onViewCreated(view, savedInstanceState);
 
         Plan plan = db.getPlan(planId);
-        binding.planName.setText(plan.getName());
+        binding.planName.setText(plan.getName().equals("Neuer Plan") ? "" : plan.getName());
 
         Plan_Activity[] activities = db.getPlanActivities(planId);
         String[] activityNames = new String[activities.length];
@@ -93,8 +93,12 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
             Navigation.findNavController(view).navigate(R.id.action_createPlanFragment_to_newActivityForPlanFragment, bundle);
         });
         binding.finishButton.setOnClickListener((v) -> {
-            db.updatePlan(planId, binding.planName.getText().toString());
-            Navigation.findNavController(view).popBackStack(R.id.choosePlanFragment, false);
+            if (!binding.planName.getText().toString().equals("")) {
+                db.updatePlan(planId, binding.planName.getText().toString());
+                Navigation.findNavController(view).popBackStack(R.id.choosePlanFragment, false);
+            } else {
+                Toast.makeText(getContext(), "Bitte Namen eingeben", Toast.LENGTH_LONG).show();
+            }
         });
         binding.usePlanButton.setOnClickListener((v) -> {
             if (binding.inputDate.getText().toString().matches("\\d{2}\\.\\d{2}\\.\\d{4}")) {
@@ -104,7 +108,7 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
                 Navigation.findNavController(view).popBackStack(R.id.activityOverviewFragment,
                         false);
             } else {
-                Toast.makeText(getContext(), "Bitte Datum im Format dd.mm.yyyy eingeben",
+                Toast.makeText(getContext(), "Bitte Datum im Format DD.MM.YYYY eingeben",
                         Toast.LENGTH_LONG).show();
             }
         });

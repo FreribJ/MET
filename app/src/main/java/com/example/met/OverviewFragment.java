@@ -192,15 +192,15 @@ public class OverviewFragment extends Fragment {
         }
 
         binding.firstOverviewStat.title.setText("Heute");
-        binding.firstOverviewStat.acutalMet.setText(binding.firstOverviewStat.acutalMet.getText().toString().replace("${value}", String.valueOf(metValueToday) + " (Aktuelle Kategorie: " + metCalculator.getCategoryName((int) metValueToday) + ")"));
+        binding.firstOverviewStat.acutalMet.setText(binding.firstOverviewStat.acutalMet.getText().toString().replace("${value}", String.valueOf(metValueToday) + " (Aktuelle Kategorie: " + metCalculator.getCategoryName((int) metValueToday * 7) + ")"));
         String toDisplayDay =
-                String.valueOf((metCalculator.getCategory(user.getCategory()).getFrom() - metValueToday) >= 0 ? metCalculator.getCategory(user.getCategory()).getFrom() - metValueToday : "Ziel erreicht!");
+                String.valueOf((metCalculator.getCategory(user.getCategory()).getFrom() / 7 - metValueToday) >= 0 ? metCalculator.getCategory(user.getCategory()).getFrom() / 7 - metValueToday : "Ziel erreicht!");
         binding.firstOverviewStat.neededMet.setText(binding.firstOverviewStat.neededMet.getText().toString().replace("${value}", toDisplayDay));
 
         binding.secondOverviewStat.title.setText("Diese Woche");
-        binding.secondOverviewStat.acutalMet.setText(binding.secondOverviewStat.acutalMet.getText().toString().replace("${value}", String.valueOf(metValueThisWeek) + " (Aktuelle Kategorie: " + metCalculator.getCategoryName((int) metValueThisWeek / 7) + ")"));
+        binding.secondOverviewStat.acutalMet.setText(binding.secondOverviewStat.acutalMet.getText().toString().replace("${value}", String.valueOf(metValueThisWeek) + " (Aktuelle Kategorie: " + metCalculator.getCategoryName((int) metValueThisWeek) + ")"));
         String toDisplayWeek =
-                String.valueOf((metCalculator.getCategory(user.getCategory()).getFrom() * 7 - metValueThisWeek) >= 0 ? metCalculator.getCategory(user.getCategory()).getFrom() * 7 - metValueThisWeek : "Ziel erreicht!");
+                String.valueOf((metCalculator.getCategory(user.getCategory()).getFrom() - metValueThisWeek) >= 0 ? metCalculator.getCategory(user.getCategory()).getFrom() - metValueThisWeek : "Ziel erreicht!");
         binding.secondOverviewStat.neededMet.setText(binding.secondOverviewStat.neededMet.getText().toString().replace("${value}", toDisplayWeek));
 
     }

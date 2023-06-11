@@ -18,6 +18,8 @@ import com.example.met.dataObjects.Activity;
 import com.example.met.databinding.FragmentNewActivityBinding;
 import com.example.met.met.MetCalculator;
 
+import java.util.Calendar;
+
 
 public class NewActivityFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -80,7 +82,7 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
                     Double.parseDouble(binding.inputTime.getText().toString()) : 0;
             String date = binding.inputDate.getText().toString();
 
-            if (!name.equals("") && !sport.equals("") && duration != 0 && date.matches("\\d{2}\\.\\d{2}\\.\\d{4}")) {
+            if (!name.equals("") && !sport.equals("") && duration != 0 && date.matches("\\d{2}\\" + ".\\d{2}\\.\\d{4}")) {
                 Log.d("NewActivityFragment",
                         "onViewCreated: " + name + " " + sport + " " + intensity + " " + duration + " " + date);
 
@@ -98,6 +100,12 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
             }
         });
 
+        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        String currentDate = String.format("%02d", currentDay) + "." + String.format("%02d",
+                currentMonth) + "." + currentYear;
+        binding.inputDate.setText(currentDate);
         if (activityId != -1) {
             Activity activity = db.getActivity(activityId);
             binding.inputName.setText(activity.getName());

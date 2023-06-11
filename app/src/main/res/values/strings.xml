@@ -25,7 +25,7 @@
     <string name="activityCount">Anzahl: ${value} Aktivitäten</string>
     <string name="edit_plan">Trainingsplan bearbeiten</string>
     <string name="name">Name</string>
-    <string name="date">Datum (dd.MM.yyyy)</string>
+    <string name="date">Datum (DD.MM.YYYY)</string>
     <string name="addActivity">+ Aktivität Hinzufügen</string>
     <string name="deletePlan">Plan\nlöschen</string>
     <string name="use">Anwenden</string>
@@ -41,7 +41,7 @@
     <string name="reached">Erreicht: ${value}</string>
     <string name="stillToReach">Noch zu erreichen: ${value}</string>
     <string name="createUser">Erstelle dein Benutzer</string>
-    <string name="birthday">Geburtsdatum (dd.MM.yyyy)</string>
+    <string name="birthday">Geburtsdatum (DD.MM.YYYY)</string>
     <string name="weight">Gewicht</string>
     <string name="activityCategorie">Aktivitätskategorie</string>
     <string name="changeUser">Ändere User</string>
