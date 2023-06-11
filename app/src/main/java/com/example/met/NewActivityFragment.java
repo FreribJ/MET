@@ -129,7 +129,10 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
         String[] intensity =
                 metCalculator.getStringArray(metCalculator.getIntensityArray(adapterView.getItemAtPosition(i).toString()));
         if (intensity == null) {
-            intensity = new String[]{""};
+            intensity = new String[]{getString(R.string.noIntensivity)};
+            binding.inputIntensity.setEnabled(false);
+        } else {
+            binding.inputIntensity.setEnabled(true);
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, intensity);

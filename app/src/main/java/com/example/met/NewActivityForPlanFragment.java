@@ -64,6 +64,12 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if (planActivityId == -1) {
+            binding.overviewTextView.setText(getString(R.string.createNewActivity));
+            binding.activityCreationFinished.setText(getString(R.string.create));
+            binding.removeActivityButton.setText(getString(R.string.cancel));
+        }
+
         String[] sports = metCalculator.getStringArray(metCalculator.getSportArray());
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, sports);
@@ -113,8 +119,9 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
         String[] intensity =
                 metCalculator.getStringArray(metCalculator.getIntensityArray(adapterView.getItemAtPosition(i).toString()));
         if (intensity == null) {
-            intensity = new String[]{""};
-        }
+            intensity = new String[]{getString(R.string.noIntensivity)};
+            binding.inputIntensity.setEnabled(false);
+        } else binding.inputIntensity.setEnabled(true);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, intensity);
         binding.inputIntensity.setAdapter(adapter);

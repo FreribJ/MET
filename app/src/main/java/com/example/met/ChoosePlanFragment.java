@@ -83,10 +83,6 @@ public class ChoosePlanFragment extends Fragment implements AdapterView.OnItemCl
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d("ActivityOverviewFragment", "onItemClick: " + i + " " + l);
-        Bundle bundle = new Bundle();
-        bundle.putInt("plan_id", db.getPlanId(i));
-        Navigation.findNavController(view).navigate(R.id.action_choosePlanFragment_to_createPlanFragment, bundle);
 
     }
 }

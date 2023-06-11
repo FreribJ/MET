@@ -1,6 +1,8 @@
 package com.example.met;
 
 import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 
 import com.example.met.dataObjects.Activity;
 import com.example.met.met.MetCalculator;
@@ -19,6 +22,8 @@ public class ActivityOverviewItemAdapter extends ArrayAdapter<Activity> {
     Activity[] activities;
 
     MetCalculator metCalculator = new MetCalculator();
+
+    DatabaseHelper db = new DatabaseHelper(getContext());
 
     public ActivityOverviewItemAdapter(@NonNull Context context, int resource, @NonNull Activity[] objects) {
         super(context, resource, objects);
@@ -77,6 +82,13 @@ public class ActivityOverviewItemAdapter extends ArrayAdapter<Activity> {
 
         TextView valueOfTime = layout.findViewById(R.id.valueOfTime);
         valueOfTime.setText("Dauer: " + String.valueOf(activities[i].getTime()));
+
+        layout.setOnClickListener(v -> {
+            Log.d("ActivityOverviewFragment", "onItemClick: " + i + " ");
+            Bundle bundle = new Bundle();
+            bundle.putInt("activity_id", activities[i].getId());
+            Navigation.findNavController(layout).navigate(R.id.action_activityOverviewFragment_to_newActivityFragment, bundle);
+        });
 
 
         return layout;

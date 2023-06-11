@@ -158,9 +158,6 @@ public class ActivityOverviewFragment extends Fragment implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d("ActivityOverviewFragment", "onItemClick: " + i + " " + l);
-        Bundle bundle = new Bundle();
-        bundle.putInt("activity_id", db.getActivityId(i));
-        Navigation.findNavController(view).navigate(R.id.action_activityOverviewFragment_to_newActivityFragment, bundle);
+
     }
 }

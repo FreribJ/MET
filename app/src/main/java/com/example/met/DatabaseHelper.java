@@ -16,10 +16,6 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    public enum Datbases {
-        user,
-        activities
-    }
     private static String DATABASE_NAME = "met_app.db";
     private static int DATABASE_VERSION = 1;
 
@@ -31,7 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL("CREATE TABLE user (id INTEGER PRIMARY KEY, name VARCHAR(255), dateOfBirth VARCHAR(10), weight DOUBLE, category VARCHAR(255));");
         sqLiteDatabase.execSQL("CREATE TABLE activitys (id INTEGER PRIMARY KEY, name VARCHAR(255), sport VARCHAR(255), intensity VARCHAR(255), time DOUBLE, date DATE, id_user BIGINT REFERENCES user(id), weightOfUser DOUBLE);");
-        sqLiteDatabase.execSQL("CREATE TABLE plans (id INTEGER PRIMARY KEY, name VARCHAR(255), age INTEGER, weight DOUBLE, category VARCHAR(255));");
+        sqLiteDatabase.execSQL("CREATE TABLE plans (id INTEGER PRIMARY KEY, name VARCHAR(255));");
         sqLiteDatabase.execSQL("CREATE TABLE plan_activitys (id INTEGER PRIMARY KEY, name VARCHAR(255), sport VARCHAR(255), intensity VARCHAR(255), time DOUBLE, id_plan INTEGER REFERENCES plans(id));");
     }
 
@@ -117,23 +113,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return null;
     }
 
-    int getActivityId(int index) {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM activitys", null);
-        for (int i = 0; i < index; i++) {
-            if (!cursor.moveToNext()) {
-                cursor.close();
-                return -1;
-            }
-        }
-        if (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            cursor.close();
-            return id;
-        }
-        cursor.close();
-        return -1;
-    }
-
     void deleteActivity(int id) {
         getWritableDatabase().execSQL("DELETE FROM activitys WHERE id = " + id + ";");
     }
@@ -164,24 +143,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return null;
-    }
-
-    int getPlanId(int index) {
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM plans", null);
-
-        for (int i = 0; i < index; i++) {
-            if (!cursor.moveToNext()) {
-                cursor.close();
-                return -1;
-            }
-        }
-        if (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            cursor.close();
-            return id;
-        }
-        cursor.close();
-        return -1;
     }
 
     Plan[] getPlans() {

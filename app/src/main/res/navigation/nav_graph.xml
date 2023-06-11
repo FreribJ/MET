@@ -40,12 +40,12 @@
     <fragment
         android:id="@+id/newActivityFragment"
         android:name="com.example.met.NewActivityFragment"
-        android:label="Aktivität hinzufügen"
+        android:label="Aktivität"
         tools:layout="@layout/fragment_new_activity" />
     <fragment
         android:id="@+id/choosePlanFragment"
         android:name="com.example.met.ChoosePlanFragment"
-        android:label="Trainingsplan auswählen"
+        android:label="Trainingsplan-Übersicht"
         tools:layout="@layout/fragment_choose_plan">
         <action
             android:id="@+id/action_choosePlanFragment_to_createPlanFragment"
@@ -54,7 +54,7 @@
     <fragment
         android:id="@+id/createPlanFragment"
         android:name="com.example.met.CreatePlanFragment"
-        android:label="Trainingsplan erstellen"
+        android:label="Trainingsplan"
         tools:layout="@layout/fragment_create_plan">
         <action
             android:id="@+id/action_createPlanFragment_to_newActivityForPlanFragment"
@@ -63,12 +63,12 @@
     <fragment
         android:id="@+id/newActivityForPlanFragment"
         android:name="com.example.met.NewActivityForPlanFragment"
-        android:label="Aktivität hinzufügen"
+        android:label="Plan-Aktivität"
         tools:layout="@layout/fragment_new_activity_for_plan" />
     <fragment
         android:id="@+id/activityOverviewFragment"
         android:name="com.example.met.ActivityOverviewFragment"
-        android:label="Aktivitätsübersicht"
+        android:label="Aktivitäts-Übersicht"
         tools:layout="@layout/fragment_activity_overview">
         <action
             android:id="@+id/action_activityOverviewFragment_to_newDecisionFragment"

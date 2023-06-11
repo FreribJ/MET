@@ -21,7 +21,7 @@
     <string name="overview">Übersicht</string>
     <string name="new_activity">Neue Aktivität</string>
     <string name="or">oder</string>
-    <string name="choose_plan">Trainingsplan auswählen</string>
+    <string name="choose_plan">Trainingsplan-Übersicht</string>
     <string name="create">Erstellen</string>
     <string name="activityCount">Anzahl: ${value} Aktivitäten</string>
     <string name="edit_plan">Trainingsplan bearbeiten</string>
@@ -49,6 +49,8 @@
     <string name="cancel">Abbrechen</string>
     <string name="save">Speichern</string>
     <string name="editActivity">Bearbeiten einer Aktivität</string>
+    <string name="createNewPlan">Erstellen eines neuen Plans</string>
+    <string name="noIntensivity">Keine Intensität</string>
 
 
     <string-array name="activityCategory">

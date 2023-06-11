@@ -68,10 +68,16 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
         Plan plan = db.getPlan(planId);
         binding.planName.setText(plan.getName().equals("Neuer Plan") ? "" : plan.getName());
 
         Plan_Activity[] activities = db.getPlanActivities(planId);
+
+        if(activities.length == 0 && plan.getName().equals("Neuer Plan")) {
+            binding.overviewTextView.setText(getString(R.string.createNewPlan));
+        }
+
         String[] activityNames = new String[activities.length];
         for (int i = 0; i < activities.length; i++) {
             activityNames[i] = activities[i].getName();
