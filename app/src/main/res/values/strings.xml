@@ -20,6 +20,7 @@
     <string name="met">MET</string>
     <string name="overview">Übersicht</string>
     <string name="new_activity">Neue Aktivität</string>
+    <string name="or">oder</string>
     <string name="choose_plan">Trainingsplan auswählen</string>
     <string name="create">Erstellen</string>
     <string name="activityCount">Anzahl: ${value} Aktivitäten</string>
