@@ -130,6 +130,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     void deletePlan(int id) {
         getWritableDatabase().execSQL("DELETE FROM plans WHERE id = " + id + ";");
+        getWritableDatabase().execSQL("DELETE FROM plan_activitys WHERE id_plan = " + id + ";");
     }
 
     Plan getPlan(int id) {
