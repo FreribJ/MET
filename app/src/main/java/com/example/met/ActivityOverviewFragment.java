@@ -64,8 +64,10 @@ public class ActivityOverviewFragment extends Fragment implements AdapterView.On
         weather.getTemp().observe(requireActivity(), (temp) -> {
             if (temp != null) {
                 int celsius = (int) (temp - 273.15);
-                binding.temperatureTextView.setText(requireActivity().getString(R.string.temperature,
-                        Integer.toString(celsius)));
+                if(getActivity() != null) {
+                    binding.temperatureTextView.setText(getActivity().getString(R.string.temperature,
+                            Integer.toString(celsius)));
+                }
             }
         });
 

@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="30dp"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".NewDecisionFragment">
 
-    <LinearLayout
+    <Button
+        android:id="@+id/addActivity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="30dp"
-        android:orientation="vertical"
-        android:gravity="center">
-        <Button
-            android:id="@+id/addActivity"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+        android:layout_height="200dp"
+        android:text="@string/new_activity" />
 
-            android:text="Neue Aktivität"/>
-
-        <Button
-            android:id="@+id/showPlans"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:text="Trainingspläne"/>
-    </LinearLayout>
-
-</FrameLayout>
+    <Button
+        android:id="@+id/showPlans"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:text="@string/plans" />
+</LinearLayout>

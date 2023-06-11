@@ -8,11 +8,11 @@
         android:id="@+id/planName"
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:textSize="30dp"/>
+        android:textSize="30sp"/>
     <TextView
         android:id="@+id/planActivityCount"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:text="Anzahl: ${value} Aktivitäten"/>
+        android:text="@string/activityCount"/>
 
 </LinearLayout>

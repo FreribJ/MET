@@ -1,26 +1,21 @@
 package com.example.met;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-
-import com.example.met.dataObjects.Activity;
 import com.example.met.dataObjects.Plan;
 import com.example.met.dataObjects.Plan_Activity;
-import com.example.met.databinding.FragmentActivityOverviewBinding;
 import com.example.met.databinding.FragmentCreatePlanBinding;
 
 /**
@@ -74,14 +69,15 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
         super.onViewCreated(view, savedInstanceState);
 
         Plan plan = db.getPlan(planId);
-        binding.planName.setText(plan.getName());
+        binding.planName.setText(plan.getName().equals("Neuer Plan") ? "" : plan.getName());
 
         Plan_Activity[] activities = db.getPlanActivities(planId);
         String[] activityNames = new String[activities.length];
         for (int i = 0; i < activities.length; i++) {
             activityNames[i] = activities[i].getName();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, activityNames);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, activityNames);
         binding.activityList.setAdapter(adapter);
         binding.activityList.setOnItemClickListener(this);
 
@@ -97,14 +93,24 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
             Navigation.findNavController(view).navigate(R.id.action_createPlanFragment_to_newActivityForPlanFragment, bundle);
         });
         binding.finishButton.setOnClickListener((v) -> {
-            db.updatePlan(planId, binding.planName.getText().toString());
-            Navigation.findNavController(view).popBackStack(R.id.choosePlanFragment, false);
+            if (!binding.planName.getText().toString().equals("")) {
+                db.updatePlan(planId, binding.planName.getText().toString());
+                Navigation.findNavController(view).popBackStack(R.id.choosePlanFragment, false);
+            } else {
+                Toast.makeText(getContext(), "Bitte Namen eingeben", Toast.LENGTH_LONG).show();
+            }
         });
         binding.usePlanButton.setOnClickListener((v) -> {
-            db.updatePlan(planId, binding.planName.getText().toString());
-            applyPlanActivities();
+            if (binding.inputDate.getText().toString().matches("\\d{2}\\.\\d{2}\\.\\d{4}")) {
+                db.updatePlan(planId, binding.planName.getText().toString());
+                applyPlanActivities();
 
-            Navigation.findNavController(view).popBackStack(R.id.activityOverviewFragment, false);
+                Navigation.findNavController(view).popBackStack(R.id.activityOverviewFragment,
+                        false);
+            } else {
+                Toast.makeText(getContext(), "Bitte Datum im Format DD.MM.YYYY eingeben",
+                        Toast.LENGTH_LONG).show();
+            }
         });
     }
 
@@ -112,7 +118,9 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
         Plan_Activity[] plan_activities = db.getPlanActivities(planId);
         String date = binding.inputDate.getText().toString();
         for (Plan_Activity plan_activity : plan_activities) {
-            db.insertActivity(plan_activity.getName(), plan_activity.getSport(), plan_activity.getIntensity(), plan_activity.getTime(), date, db.getUser().getWeight());
+            db.insertActivity(plan_activity.getName(), plan_activity.getSport(),
+                    plan_activity.getIntensity(), plan_activity.getTime(), date,
+                    db.getUser().getWeight());
         }
     }
 

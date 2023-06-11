@@ -1,22 +1,20 @@
 package com.example.met;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
-import com.example.met.dataObjects.Activity;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+
 import com.example.met.dataObjects.Plan_Activity;
-import com.example.met.databinding.FragmentNewActivityBinding;
 import com.example.met.databinding.FragmentNewActivityForPlanBinding;
 import com.example.met.met.MetCalculator;
 
@@ -67,7 +65,8 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
         super.onViewCreated(view, savedInstanceState);
 
         String[] sports = metCalculator.getStringArray(metCalculator.getSportArray());
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, sports);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, sports);
         binding.inputSport.setAdapter(adapter);
         binding.inputSport.setOnItemSelectedListener(this);
 
@@ -80,16 +79,21 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
             String name = binding.inputName.getText().toString();
             String sport = binding.inputSport.getSelectedItem().toString();
             String intensity = binding.inputIntensity.getSelectedItem().toString();
-            double duration = Double.parseDouble(binding.inputTime.getText().toString());
+            double duration = !binding.inputTime.getText().toString().equals("") ?
+                    Double.parseDouble(binding.inputTime.getText().toString()) : 0;
+            if (!name.equals("") && !sport.equals("") && duration != 0) {
 
-            Log.d("NewActivityFragment", "onViewCreated: " + name + " " + sport + " " + intensity + " " + duration);
+                Log.d("NewActivityFragment",
+                        "onViewCreated: " + name + " " + sport + " " + intensity + " " + duration);
 
-            if (planActivityId != -1)
-                db.updatePlanActivity(planActivityId, name, sport, intensity, duration);
-            else
-                db.insertPlanActivity(name, sport, intensity, duration, planId);
+                if (planActivityId != -1)
+                    db.updatePlanActivity(planActivityId, name, sport, intensity, duration);
+                else db.insertPlanActivity(name, sport, intensity, duration, planId);
 
-            Navigation.findNavController(view).popBackStack();
+                Navigation.findNavController(view).popBackStack();
+            } else {
+                Toast.makeText(getContext(), "Bitte fülle alle Felder aus", Toast.LENGTH_SHORT).show();
+            }
         });
 
         if (planActivityId != -1) {
@@ -103,19 +107,23 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d("NewActivityFragment", "onItemSelected: " + adapterView.getItemAtPosition(i).toString());
+        Log.d("NewActivityFragment",
+                "onItemSelected: " + adapterView.getItemAtPosition(i).toString());
 
-        String[] intensity = metCalculator.getStringArray(metCalculator.getIntensityArray(adapterView.getItemAtPosition(i).toString()));
+        String[] intensity =
+                metCalculator.getStringArray(metCalculator.getIntensityArray(adapterView.getItemAtPosition(i).toString()));
         if (intensity == null) {
             intensity = new String[]{""};
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, intensity);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, intensity);
         binding.inputIntensity.setAdapter(adapter);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        Log.d("NewActivityFragment", "onNothingSelected: " + adapterView.getItemAtPosition(0).toString());
+        Log.d("NewActivityFragment",
+                "onNothingSelected: " + adapterView.getItemAtPosition(0).toString());
 
     }
 }

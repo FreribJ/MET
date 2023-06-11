@@ -1,46 +1,28 @@
 package com.example.met;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-
 import com.example.met.dataObjects.User;
 import com.example.met.databinding.FragmentUserCreationBinding;
-import com.example.met.met.HasName;
 import com.example.met.met.MetCalculator;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.InputMismatchException;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 
 public class UserCreationFragment extends Fragment {
 
-    private FragmentUserCreationBinding binding;
-
     DatabaseHelper db;
+    private FragmentUserCreationBinding binding;
 
     public UserCreationFragment() {
         // Required empty public constructor
@@ -63,7 +45,7 @@ public class UserCreationFragment extends Fragment {
         return binding.getRoot();
 
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_user_creation, container, false);
+        //        return inflater.inflate(R.layout.fragment_user_creation, container, false);
     }
 
     @Override
@@ -73,7 +55,8 @@ public class UserCreationFragment extends Fragment {
         //Fill Spinner with categories
         MetCalculator metCalculator = new MetCalculator();
         String[] categories = metCalculator.getStringArray(metCalculator.getCategoryArray());
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, categories);
         binding.categoryChoice.setAdapter(adapter);
 
         //Fill fields with user data
@@ -87,12 +70,13 @@ public class UserCreationFragment extends Fragment {
         }
 
         binding.userCreationFinished.setOnClickListener((v) -> {
-        try {
-            createUser(user != null);
-            Navigation.findNavController(view).navigate(R.id.overviewFragment);
-        } catch (Exception e) {
-            System.out.println("Eingabe fehlgeschlagen: " + e.getMessage());
-        }
+            try {
+                createUser(user != null);
+                Navigation.findNavController(view).navigate(R.id.overviewFragment);
+            } catch (Exception e) {
+                Toast.makeText(getContext(), "Bitte fülle alle Felder richtig aus",
+                        Toast.LENGTH_SHORT).show();
+            }
         });
 
 
@@ -100,25 +84,21 @@ public class UserCreationFragment extends Fragment {
 
     void createUser(boolean update) {
         String name = binding.inputName.getText().toString().strip();
-        if (name == "")
-            throw new InputMismatchException();
+        if ("".equals(name)) throw new InputMismatchException();
 
         String dateOfBirth = binding.inputAge.getText().toString();
-        if (dateOfBirth.length() != 10)
-            throw new InputMismatchException();
+        if (dateOfBirth.length() != 10) throw new InputMismatchException();
 
-        double weight = Double.parseDouble(binding.inputWeight.getText().toString().replace(',', '.'));
-        if (weight < 0.0 || weight > 500.0)
-            throw new InputMismatchException();
+        double weight = Double.parseDouble(binding.inputWeight.getText().toString().replace(',',
+                '.'));
+        if (weight < 0.0 || weight > 500.0) throw new InputMismatchException();
 
         String category = binding.categoryChoice.getSelectedItem().toString();
-        if (category == "" || category == "Aktivitätskategorie")
+        if ("".equals(category) || "Aktivitätskategorie".equals(category))
             throw new InputMismatchException();
 
-        if (update)
-            db.updateUser(name, dateOfBirth, weight, category);
-        else
-            db.insertUser(name, dateOfBirth, weight, category);
+        if (update) db.updateUser(name, dateOfBirth, weight, category);
+        else db.insertUser(name, dateOfBirth, weight, category);
 
     }
 }
