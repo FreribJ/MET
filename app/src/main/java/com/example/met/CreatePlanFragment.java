@@ -18,6 +18,8 @@ import com.example.met.dataObjects.Plan;
 import com.example.met.dataObjects.Plan_Activity;
 import com.example.met.databinding.FragmentCreatePlanBinding;
 
+import java.util.Calendar;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link CreatePlanFragment#newInstance} factory method to
@@ -85,6 +87,13 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
         CreatePlanItemAdapter adapter = new CreatePlanItemAdapter(getContext(), R.layout.fragment_create_plan_item, activities, planId);
         binding.activityList.setAdapter(adapter);
 
+        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        String currentDate = String.format("%02d", currentDay) + "." + String.format("%02d",
+                currentMonth) + "." + currentYear;
+        binding.inputDate.setText(currentDate);
+
         binding.removePlanButton.setOnClickListener((v) -> {
             db.deletePlan(planId);
             Navigation.findNavController(view).popBackStack(R.id.choosePlanFragment, false);
@@ -109,8 +118,8 @@ public class CreatePlanFragment extends Fragment implements AdapterView.OnItemCl
                 db.updatePlan(planId, binding.planName.getText().toString());
                 applyPlanActivities();
 
-                Navigation.findNavController(view).popBackStack(R.id.activityOverviewFragment,
-                        false);
+                Navigation.findNavController(view).popBackStack(R.id.newDecisionFragment,
+                        true);
             } else {
                 Toast.makeText(getContext(), "Bitte Datum im Format DD.MM.YYYY eingeben",
                         Toast.LENGTH_LONG).show();

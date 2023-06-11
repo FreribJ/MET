@@ -84,7 +84,9 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
         binding.activityCreationFinished.setOnClickListener(view1 -> {
             String name = binding.inputName.getText().toString();
             String sport = binding.inputSport.getSelectedItem().toString();
-            String intensity = binding.inputIntensity.getSelectedItem().toString();
+            String intensity = "";
+            if (binding.inputIntensity.isEnabled())
+                intensity = binding.inputIntensity.getSelectedItem().toString();
             double duration = !binding.inputTime.getText().toString().equals("") ?
                     Double.parseDouble(binding.inputTime.getText().toString()) : 0;
             if (!name.equals("") && !sport.equals("") && duration != 0) {

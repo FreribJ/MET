@@ -82,7 +82,9 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
         binding.activityCreationFinished.setOnClickListener(view1 -> {
             String name = binding.inputName.getText().toString();
             String sport = binding.inputSport.getSelectedItem().toString();
-            String intensity = binding.inputIntensity.getSelectedItem().toString();
+            String intensity = "";
+            if (binding.inputIntensity.isEnabled())
+                intensity = binding.inputIntensity.getSelectedItem().toString();
             double duration = !binding.inputTime.getText().toString().equals("") ?
                     Double.parseDouble(binding.inputTime.getText().toString()) : 0;
             String date = binding.inputDate.getText().toString();
@@ -97,6 +99,8 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
                     db.insertActivity(name, sport, intensity, duration, date,
                             db.getUser().getWeight());
 
+                Navigation.findNavController(view).popBackStack(R.id.newDecisionFragment,
+                        true);
                 Navigation.findNavController(view).popBackStack(R.id.activityOverviewFragment,
                         false);
             } else {
