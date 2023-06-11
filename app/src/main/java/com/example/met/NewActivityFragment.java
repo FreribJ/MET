@@ -90,8 +90,6 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
             String date = binding.inputDate.getText().toString();
 
             if (!name.equals("") && !sport.equals("") && duration != 0 && date.matches("\\d{2}\\" + ".\\d{2}\\.\\d{4}")) {
-                Log.d("NewActivityFragment",
-                        "onViewCreated: " + name + " " + sport + " " + intensity + " " + duration + " " + date);
 
                 if (activityId != -1)
                     db.updateActivity(activityId, name, sport, intensity, duration, date);
@@ -127,8 +125,6 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d("NewActivityFragment",
-                "onItemSelected: " + adapterView.getItemAtPosition(i).toString());
 
         String[] intensity =
                 metCalculator.getStringArray(metCalculator.getIntensityArray(adapterView.getItemAtPosition(i).toString()));
@@ -145,8 +141,6 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        Log.d("NewActivityFragment",
-                "onNothingSelected: " + adapterView.getItemAtPosition(0).toString());
 
     }
 }

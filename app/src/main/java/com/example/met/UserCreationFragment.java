@@ -62,7 +62,6 @@ public class UserCreationFragment extends Fragment {
         //Fill fields with user data
         User user = db.getUser();
         if (user != null) {
-            Log.d("User", user.toString());
             binding.inputName.setText(user.getName());
             binding.inputAge.setText(String.valueOf(user.getDateOfBirth()));
             binding.inputWeight.setText(String.valueOf(user.getWeight()));

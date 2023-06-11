@@ -110,7 +110,6 @@ public class MetCalculator {
     }
 
     public double getMetMinutes(Activity activity) {
-        Log.d("TESTING!!!", "getMet: " + activity.toString());
         Sport sport = getSport(activity.getSport());
         Sport.Intensity intensity = getIntensity(sport, activity.getIntensity());
         if (intensity == null) {

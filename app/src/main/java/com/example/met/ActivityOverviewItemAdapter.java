@@ -84,7 +84,6 @@ public class ActivityOverviewItemAdapter extends ArrayAdapter<Activity> {
         valueOfTime.setText("Dauer: " + String.valueOf(activities[i].getTime()));
 
         layout.setOnClickListener(v -> {
-            Log.d("ActivityOverviewFragment", "onItemClick: " + i + " ");
             Bundle bundle = new Bundle();
             bundle.putInt("activity_id", activities[i].getId());
             Navigation.findNavController(layout).navigate(R.id.action_activityOverviewFragment_to_newActivityFragment, bundle);

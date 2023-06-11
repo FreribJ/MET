@@ -91,9 +91,6 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
                     Double.parseDouble(binding.inputTime.getText().toString()) : 0;
             if (!name.equals("") && !sport.equals("") && duration != 0) {
 
-                Log.d("NewActivityFragment",
-                        "onViewCreated: " + name + " " + sport + " " + intensity + " " + duration);
-
                 if (planActivityId != -1)
                     db.updatePlanActivity(planActivityId, name, sport, intensity, duration);
                 else db.insertPlanActivity(name, sport, intensity, duration, planId);
@@ -115,8 +112,6 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.d("NewActivityFragment",
-                "onItemSelected: " + adapterView.getItemAtPosition(i).toString());
 
         String[] intensity =
                 metCalculator.getStringArray(metCalculator.getIntensityArray(adapterView.getItemAtPosition(i).toString()));
@@ -131,8 +126,6 @@ public class NewActivityForPlanFragment extends Fragment implements AdapterView.
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        Log.d("NewActivityFragment",
-                "onNothingSelected: " + adapterView.getItemAtPosition(0).toString());
 
     }
 }
