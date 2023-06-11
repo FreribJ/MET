@@ -45,6 +45,9 @@
     <string name="weight">Gewicht</string>
     <string name="activityCategorie">Aktivitätskategorie</string>
     <string name="changeUser">Ändere User</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="save">Speichern</string>
+    <string name="editActivity">Bearbeiten einer Aktivität</string>
 
 
     <string-array name="activityCategory">

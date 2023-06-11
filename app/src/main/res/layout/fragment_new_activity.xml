@@ -17,9 +17,10 @@
         android:textSize="50sp" />
 
     <TextView
+        android:id="@+id/overviewTextView"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="@string/createNewActivity"
+        android:text="@string/editActivity"
         android:textAlignment="center" />
 
     <LinearLayout
@@ -72,6 +73,6 @@
             android:id="@+id/activityCreationFinished"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="@string/create" />
+            android:text="@string/save" />
     </LinearLayout>
 </LinearLayout>

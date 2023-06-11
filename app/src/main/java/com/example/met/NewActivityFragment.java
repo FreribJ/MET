@@ -63,6 +63,11 @@ public class NewActivityFragment extends Fragment implements AdapterView.OnItemS
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        if(activityId == -1) {
+            binding.overviewTextView.setText(getString(R.string.createNewActivity));
+            binding.activityCreationFinished.setText(getString(R.string.create));
+            binding.removeActivityButton.setText(getString(R.string.cancel));
+        }
         String[] sports = metCalculator.getStringArray(metCalculator.getSportArray());
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, sports);
